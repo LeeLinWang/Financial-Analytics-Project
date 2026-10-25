@@ -1,0 +1,6 @@
+# local-only working files (row-level data must never be written here)
+_local/
+__pycache__/
+*.csv
+*.pkl
+*.parquet

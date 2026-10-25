@@ -1,0 +1,97 @@
+{
+ "note": "Synthetic inputs only. Not real applicants. Outcomes are computed by the scoring engine.",
+ "profiles": [
+  {
+   "id": "approved",
+   "name": "Approved example: established owner",
+   "kind": "Approved",
+   "inputs": {
+    "age_input": 54,
+    "employment_years_input": 16,
+    "not_employed": false,
+    "ext_source_1": 0.75,
+    "goods_price": 950000,
+    "no_bureau_history": false,
+    "bureau_debt_sum": 150000,
+    "bureau_credit_sum": 1500000,
+    "days_since_recent_credit": 900,
+    "occupation": "Core staff",
+    "organisation": "School",
+    "education": "Higher education",
+    "days_since_phone_change": 2600,
+    "region_rating": 1,
+    "floors_max": 0.33,
+    "principal": 500000
+   }
+  },
+  {
+   "id": "borderline",
+   "name": "Borderline example: mid-career owner",
+   "kind": "Borderline",
+   "inputs": {
+    "age_input": 38,
+    "employment_years_input": 4,
+    "not_employed": false,
+    "ext_source_1": null,
+    "goods_price": 500000,
+    "no_bureau_history": false,
+    "bureau_debt_sum": 380000,
+    "bureau_credit_sum": 900000,
+    "days_since_recent_credit": 300,
+    "occupation": "Sales staff",
+    "organisation": "Business Entity Type 3",
+    "education": "Secondary / secondary special",
+    "days_since_phone_change": 1000,
+    "region_rating": 2,
+    "floors_max": 0.17,
+    "principal": 400000
+   }
+  },
+  {
+   "id": "rejected",
+   "name": "Rejected example: recent borrower",
+   "kind": "Rejected",
+   "inputs": {
+    "age_input": 28,
+    "employment_years_input": 1.5,
+    "not_employed": false,
+    "ext_source_1": 0.25,
+    "goods_price": 300000,
+    "no_bureau_history": false,
+    "bureau_debt_sum": 900000,
+    "bureau_credit_sum": 1000000,
+    "days_since_recent_credit": 30,
+    "occupation": "Laborers",
+    "organisation": "Self-employed",
+    "education": "Secondary / secondary special",
+    "days_since_phone_change": 100,
+    "region_rating": 3,
+    "floors_max": null,
+    "principal": 300000
+   }
+  },
+  {
+   "id": "thin_file",
+   "name": "Retired owner without bureau history",
+   "kind": "No bureau history",
+   "inputs": {
+    "age_input": 63,
+    "employment_years_input": 0,
+    "not_employed": true,
+    "ext_source_1": null,
+    "goods_price": 450000,
+    "no_bureau_history": true,
+    "bureau_debt_sum": null,
+    "bureau_credit_sum": null,
+    "days_since_recent_credit": null,
+    "occupation": null,
+    "organisation": "Not employed (XNA)",
+    "education": "Secondary / secondary special",
+    "days_since_phone_change": 1500,
+    "region_rating": 2,
+    "floors_max": null,
+    "principal": 450000
+   }
+  }
+ ]
+}

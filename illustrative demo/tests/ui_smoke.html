@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Dashboard smoke test</title></head>
+<body>
+<pre id="results">running</pre>
+<iframe id="app" src="../index.html#applicant" style="width:1400px;height:900px"></iframe>
+<iframe id="missing" src="../index.html?data=no_such_folder" style="width:1400px;height:900px"></iframe>
+<script type="module">
+// Drives the real dashboard UI and records pass/fail lines. Run through headless Chrome --dump-dom.
+const out = [];
+const check = (name, ok, detail = '') => out.push(`${ok ? 'PASS' : 'FAIL'} ${name}${detail ? ` - ${detail}` : ''}`);
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const errors = [];
+
+async function ready(frame) {
+  for (let i = 0; i < 100; i += 1) {
+    const d = frame.contentDocument;
+    if (d && d.querySelector('#assess-decision .prompt-box, #assess-decision .score-hero, #section-portfolio .unavailable, #view-applicant .unavailable')) return d;
+    await wait(100);
+  }
+  return frame.contentDocument;
+}
+const calc = (d) => d.getElementById('btn-calc').click();
+const setNumber = (d, id, v) => { const el = d.getElementById(`in-${id}`); el.value = v; el.dispatchEvent(new Event('input')); calc(d); };
+const score = (d) => parseFloat(d.querySelector('#assess-decision .score').textContent.replace(/,/g, ''));
+const decision = (d) => d.querySelector('#assess-decision .decision')?.textContent.trim() || '';
+
+async function run() {
+  const frame = document.getElementById('app');
+  frame.contentWindow.addEventListener('error', (e) => errors.push(e.message));
+  const d = await ready(frame);
+  frame.contentWindow.addEventListener('error', (e) => errors.push(e.message));
+
+  // profiles: computed through the engine, not hardcoded
+  check('inputs are pre-filled and wait for Calculate score', !!d.querySelector('#assess-decision .prompt-box') && d.getElementById('in-age_input').value !== '');
+  const pick = async (kind) => { [...d.querySelectorAll('.profile-chip')].find((b) => b.textContent.trim() === kind).click(); await wait(30); calc(d); await wait(30); };
+  await pick('Approved'); const sApproved = score(d); check('approved profile is approved', decision(d).startsWith('✓'), `score ${sApproved}`);
+  check('result explains why (verdict and factors)', /Why/.test(d.getElementById('assess-decision').textContent) && /points above the cutoff/.test(d.getElementById('assess-decision').textContent) && /vs average/.test(d.getElementById('assess-decision').textContent));
+  await pick('Rejected'); check('declined result says declined', /Declined/.test(decision(d)) && /below the cutoff/.test(d.getElementById('assess-decision').textContent));
+  check('rejected profile is rejected and has no offer', decision(d).startsWith('✕') && d.querySelector('#assess-decision').textContent.includes('No offer'), `score ${score(d)}`);
+  await pick('Borderline'); const sBorder = score(d); check('borderline profile is within 10 points of the cutoff', Math.abs(sBorder - 545) < 10, `score ${sBorder}`);
+  await pick('No bureau history');
+  const bdText = d.getElementById('assess-breakdown').textContent;
+  check('no-history profile uses the No bureau history attribute', bdText.includes('No bureau history'));
+  check('no-history profile disables bureau amount inputs', d.getElementById('in-bureau_credit_sum').disabled);
+
+  // breakdown reconciliation: 12 rows, rounded points sum shown equals the row sum
+  await pick('Borderline');
+  const rows = [...d.querySelectorAll('#assess-breakdown tbody tr:not(.detail)')];
+  const pts = rows.map((r) => parseInt(r.querySelector('td.pts').textContent, 10));
+  const total = parseInt(d.querySelector('#assess-breakdown tfoot td.pts').textContent, 10);
+  check('breakdown lists 12 characteristics', rows.length === 12, `${rows.length} rows`);
+  check('rounded points reconcile with the displayed total', pts.reduce((a, b) => a + b, 0) === total, `${total}`);
+
+  // expandable detail
+  d.querySelector('#assess-breakdown button.expand').click(); await wait(30);
+  check('expanding a row shows WOE and coefficient', /WOE .* coefficient/.test(d.querySelector('#assess-breakdown tr.detail')?.textContent || ''));
+
+  // validation: impossible input blocks scoring; valid extreme is accepted
+  setNumber(d, 'ext_source_1', 1.7); await wait(30);
+  check('external score above 1 is rejected', d.getElementById('assess-messages').textContent.includes('between 0 and 1'));
+  setNumber(d, 'ext_source_1', 0.5); await wait(30);
+  const e1 = d.getElementById('in-goods_price'); e1.value = 90000000; e1.dispatchEvent(new Event('input')); await wait(30);
+  check('changing an input asks for recalculation', !!d.querySelector('#assess-decision .prompt-box'));
+  calc(d); await wait(30);
+  check('extreme goods price is accepted (end bin)', !!d.querySelector('#assess-decision .score-hero') && d.getElementById('assess-breakdown').textContent.includes('> 900,000'));
+  setNumber(d, 'age_input', -4); await wait(30);
+  check('negative age is rejected', d.getElementById('assess-messages').textContent.includes('Age must be between'));
+  setNumber(d, 'age_input', 70); await wait(30);
+  check('age outside 25-65 warns but still scores', d.getElementById('assess-messages').textContent.includes('outside the modelled population') && !!d.querySelector('#assess-decision .score-hero'));
+
+  // zero bureau credit -> Missing (not zero) for the ratio
+  await pick('Borderline');
+  setNumber(d, 'bureau_credit_sum', 0); await wait(30);
+  const ratioRow = [...d.querySelectorAll('#assess-breakdown tbody tr:not(.detail)')].find((r) => r.textContent.includes('Bureau debt-to-credit'));
+  check('zero bureau credit maps debt-to-credit to Missing', ratioRow?.textContent.includes('Missing'));
+
+  // unseen category
+  await pick('Borderline');
+  const occ = d.getElementById('in-occupation');
+  occ.value = 'Other (not in development data)'; occ.dispatchEvent(new Event('change')); calc(d); await wait(30);
+  check('unlisted occupation maps to the Unseen attribute', d.getElementById('assess-breakdown').textContent.includes('Unseen'));
+
+  // what-if
+  await pick('Borderline');
+  const before = score(d);
+  const wf = d.getElementById('wi-field'); wf.value = 'ext_source_1'; wf.dispatchEvent(new Event('change')); await wait(30);
+  const wv = d.getElementById('wi-value'); wv.value = '0.8'; wv.dispatchEvent(new Event('input')); await wait(30);
+  const wiText = d.getElementById('wi-result').textContent;
+  check('what-if shows original and revised score', wiText.includes('Exact score') && wiText.includes(before.toFixed(1)));
+  check('what-if leaves the main applicant unchanged', Math.abs(score(d) - before) < 1e-9);
+
+  // navigation and monitoring modes
+  d.querySelector('.nav-btn[data-view="business"]').click(); await wait(50);
+  d.querySelector('.sub-btn[data-section="monitoring"]').click(); await wait(80);
+  check('monitoring shows score PSI', d.getElementById('section-monitoring').textContent.includes('Score PSI'));
+  [...d.querySelectorAll('#section-monitoring .chip')].find((b) => b.dataset.mode === 'future').click(); await wait(50);
+  check('simulated future mode is marked unavailable', d.getElementById('section-monitoring').textContent.includes('Not available from the current analysis'));
+  d.querySelector('.sub-btn[data-section="policy"]').click(); await wait(80);
+  check('policy comparison highlights the recommended cutoff', !!d.querySelector('#section-policy tr.recommended'));
+  const sel = d.getElementById('pc-scenario'); sel.value = String(sel.options.length - 1); sel.dispatchEvent(new Event('change')); await wait(30);
+  check('scenario selector updates the table', d.getElementById('pc-scenario-table').textContent.includes('Projected net contribution'));
+  check('charts rendered as SVG', d.querySelectorAll('#section-policy svg.chart').length >= 3);
+
+  // missing artifacts: graceful
+  const m = await ready(document.getElementById('missing'));
+  await wait(200);
+  check('missing artifacts show the unavailable message without crashing', (m.body.textContent.match(/Not available from the current analysis/g) || []).length >= 3);
+
+  check('no uncaught errors in the dashboard', errors.length === 0, errors.join('; '));
+  document.getElementById('results').textContent = out.join('\n') + `\nSUMMARY ${out.filter((x) => x.startsWith('PASS')).length}/${out.length} passed`;
+}
+run().catch((e) => { document.getElementById('results').textContent = `FAIL smoke test crashed - ${e.message}\n${out.join('\n')}`; });
+</script>
+</body>
+</html>

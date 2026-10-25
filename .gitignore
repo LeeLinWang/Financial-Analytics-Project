@@ -29,3 +29,7 @@ config_local.*
 __pycache__/
 .vscode/
 .idea/
+
+# --- Exception: the dashboard's exported rules and aggregates (no row-level data) ---
+!illustrative demo/data/
+!illustrative demo/data/*.json

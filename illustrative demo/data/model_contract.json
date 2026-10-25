@@ -1,0 +1,1055 @@
+{
+ "version": {
+  "model_version": "HI-scorecard final (tuned, 12 characteristics)",
+  "notebook": "Home_Improvement_Credit_Scorecard.ipynb",
+  "notebook_sha256_12": "5f15da331dac",
+  "git_commit": "265b374",
+  "fitted_on": "dev_train",
+  "policy_selected_on": "validation",
+  "evaluated_once_on": "test"
+ },
+ "target": {
+  "name": "TARGET",
+  "event": 1,
+  "event_label": "payment difficulties",
+  "definition": "TARGET = 1: payment more than X days late on at least one of the first Y instalments (X, Y not disclosed). Early payment difficulty, not a confirmed default or loss.",
+  "probability_label": "Estimated probability of payment difficulties (TARGET = 1)"
+ },
+ "population": {
+  "description": "Applicants who own a house or flat (FLAG_OWN_REALTY = Y) aged 25-65 (proxy for home-improvement borrowers).",
+  "age_min": 25,
+  "age_max": 65
+ },
+ "special_bins": {
+  "missing": "Missing",
+  "no_history": "No bureau history",
+  "unseen": "Unseen",
+  "rules": [
+   "Missing value -> Missing bin",
+   "BUR_ characteristics: missing value with no bureau record -> No bureau history bin",
+   "Categorical level not seen in dev_train -> Unseen bin with WOE 0"
+  ]
+ },
+ "model": {
+  "intercept": -2.453814677583483,
+  "n_characteristics": 12,
+  "calibration": "none (unweighted logistic regression, calibrated on dev_train)",
+  "regularisation": "L2, C = 1.0 (scikit-learn lbfgs)"
+ },
+ "scaling": {
+  "target_score": 600,
+  "target_odds_good_bad": 50,
+  "pdo": 20,
+  "factor": 28.85390081777927,
+  "offset": 487.1228762045055,
+  "points_formula": "points_ij = Factor x (-(beta_i x WOE_ij + beta_0 / n)) + Offset / n",
+  "score_formula": "score = Offset - Factor x z, z = beta_0 + sum(beta_i x WOE_i)",
+  "probability_formula": "p = 1 / (1 + exp((score - Offset) / Factor))",
+  "rounding": "Each attribute rounded to the nearest whole point for display; the decision uses the exact (unrounded) score"
+ },
+ "policy": {
+  "cutoff": 545,
+  "operator": ">=",
+  "score_used": "exact (unrounded)",
+  "rule": "Approve if exact score >= 545",
+  "basis": "Lowest cutoff whose accepted observed bad rate on validation is at most 6% (risk-appetite assumption)",
+  "risk_limit": 0.06
+ },
+ "pricing": {
+  "band_edges": [
+   null,
+   530.0,
+   540.0,
+   550.0,
+   560.0,
+   570.0,
+   580.0,
+   590.0,
+   null
+  ],
+  "band_labels": [
+   "< 530",
+   "530-539",
+   "540-549",
+   "550-559",
+   "560-569",
+   "570-579",
+   "580-589",
+   "590+"
+  ],
+  "band_rule": "left-inclusive: [lower, upper)",
+  "rates": {
+   "< 530": 0.1025,
+   "530-539": 0.095,
+   "540-549": 0.09,
+   "550-559": 0.085,
+   "560-569": 0.0825,
+   "570-579": 0.08,
+   "580-589": 0.08,
+   "590+": 0.0775
+  },
+  "term_months": 36,
+  "standard_principal": 500000.0,
+  "repayment": "Equal monthly instalments; monthly rate = annual rate / 12",
+  "fees": "No fees are modelled in the notebook",
+  "units": "Dataset currency units (currency not stated in the data dictionary). Term and principal are hypothetical."
+ },
+ "characteristics": [
+  {
+   "name": "EXT_SOURCE_1",
+   "label": "External score",
+   "description": "Normalised score from an external data source (0 to 1).",
+   "input": {
+    "kind": "number",
+    "field": "ext_source_1",
+    "min": 0,
+    "max": 1,
+    "step": 0.01,
+    "unit": "score 0-1",
+    "allow_missing": true,
+    "missing_label": "Not reported"
+   },
+   "transform": "EXT_SOURCE_1 = entered score",
+   "coefficient": -0.6637354295051086,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "<= 0.43",
+     "woe": -0.42912675608336626,
+     "points_unrounded": 38.2753907449615,
+     "points": 38,
+     "special": false
+    },
+    {
+     "label": "(0.43, 0.59]",
+     "woe": 0.26863566255607946,
+     "points_unrounded": 51.63848740371284,
+     "points": 52,
+     "special": false
+    },
+    {
+     "label": "(0.59, 0.69]",
+     "woe": 0.5137977228327941,
+     "points_unrounded": 56.333673359592225,
+     "points": 56,
+     "special": false
+    },
+    {
+     "label": "> 0.69",
+     "woe": 1.087788180154004,
+     "points_unrounded": 67.32636909310618,
+     "points": 67,
+     "special": false
+    },
+    {
+     "label": "Missing",
+     "woe": -0.0880164074241175,
+     "points_unrounded": 44.808116553442325,
+     "points": 45,
+     "special": true
+    }
+   ],
+   "bureau_field": false,
+   "edges": [
+    0.43,
+    0.59,
+    0.69
+   ],
+   "bin_labels": [
+    "<= 0.43",
+    "(0.43, 0.59]",
+    "(0.59, 0.69]",
+    "> 0.69"
+   ],
+   "discrete": false,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "missing_supported": true,
+   "no_history_supported": false
+  },
+  {
+   "name": "employment_years",
+   "label": "Years in current job",
+   "description": "Length of current employment. Not employed (pensioners, unemployed) maps to Missing.",
+   "input": {
+    "kind": "number",
+    "field": "employment_years_input",
+    "min": 0,
+    "max": 60,
+    "step": 0.1,
+    "unit": "years",
+    "allow_missing": true,
+    "missing_label": "Not currently employed"
+   },
+   "transform": "DAYS_EMPLOYED = -round(years x 365.25); employment_years = -DAYS_EMPLOYED / 365.25 (not employed: sentinel 365243 -> missing)",
+   "coefficient": -0.5655415277116931,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "<= 2.7",
+     "woe": -0.3651525460234915,
+     "points_unrounded": 40.53516198061508,
+     "points": 41,
+     "special": false
+    },
+    {
+     "label": "(2.7, 4.8]",
+     "woe": -0.19478509673763983,
+     "points_unrounded": 43.31523150246268,
+     "points": 43,
+     "special": false
+    },
+    {
+     "label": "(4.8, 6.3]",
+     "woe": -0.08204904985538847,
+     "points_unrounded": 45.15486723842458,
+     "points": 45,
+     "special": false
+    },
+    {
+     "label": "(6.3, 9.2]",
+     "woe": 0.0895923253566154,
+     "points_unrounded": 47.955724784365,
+     "points": 48,
+     "special": false
+    },
+    {
+     "label": "(9.2, 15]",
+     "woe": 0.32593559715014836,
+     "points_unrounded": 51.81239299980861,
+     "points": 52,
+     "special": false
+    },
+    {
+     "label": "> 15",
+     "woe": 0.69868912970181,
+     "points_unrounded": 57.89501464702934,
+     "points": 58,
+     "special": false
+    },
+    {
+     "label": "Missing",
+     "woe": 0.36044232292089456,
+     "points_unrounded": 52.375476482106016,
+     "points": 52,
+     "special": true
+    }
+   ],
+   "bureau_field": false,
+   "edges": [
+    2.7,
+    4.8,
+    6.3,
+    9.2,
+    15.0
+   ],
+   "bin_labels": [
+    "<= 2.7",
+    "(2.7, 4.8]",
+    "(4.8, 6.3]",
+    "(6.3, 9.2]",
+    "(9.2, 15]",
+    "> 15"
+   ],
+   "discrete": false,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "missing_supported": true,
+   "no_history_supported": false
+  },
+  {
+   "name": "AMT_GOODS_PRICE",
+   "label": "Goods price financed",
+   "description": "Price of the goods the loan finances (dataset currency units).",
+   "input": {
+    "kind": "number",
+    "field": "goods_price",
+    "min": 0,
+    "max": null,
+    "step": 1000,
+    "unit": "dataset currency units",
+    "allow_missing": true,
+    "missing_label": "Not reported"
+   },
+   "transform": "AMT_GOODS_PRICE = entered amount",
+   "coefficient": -0.44631810954878115,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "<= 450,000",
+     "woe": -0.17103944517515718,
+     "points_unrounded": 44.291100994662145,
+     "points": 44,
+     "special": false
+    },
+    {
+     "label": "(450,000, 680,000]",
+     "woe": 0.07157490073917065,
+     "points_unrounded": 47.41549302148746,
+     "points": 47,
+     "special": false
+    },
+    {
+     "label": "(680,000, 900,000]",
+     "woe": 0.17900539299949597,
+     "points_unrounded": 48.79898488463806,
+     "points": 49,
+     "special": false
+    },
+    {
+     "label": "> 900,000",
+     "woe": 0.47652320127137254,
+     "points_unrounded": 52.63042471355667,
+     "points": 53,
+     "special": false
+    },
+    {
+     "label": "Missing",
+     "woe": 0.5565667045990459,
+     "points_unrounded": 53.66122642750173,
+     "points": 54,
+     "special": true
+    }
+   ],
+   "bureau_field": false,
+   "edges": [
+    450000.0,
+    680000.0,
+    900000.0
+   ],
+   "bin_labels": [
+    "<= 450,000",
+    "(450,000, 680,000]",
+    "(680,000, 900,000]",
+    "> 900,000"
+   ],
+   "discrete": false,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "missing_supported": true,
+   "no_history_supported": false
+  },
+  {
+   "name": "BUR_debt_to_credit",
+   "label": "Bureau debt-to-credit",
+   "description": "Outstanding bureau debt divided by total bureau credit (currency 1 records only).",
+   "input": {
+    "kind": "bureau_ratio",
+    "fields": [
+     "bureau_debt_sum",
+     "bureau_credit_sum"
+    ],
+    "unit": "dataset currency units",
+    "allow_missing": true,
+    "missing_label": "Debt amount not reported"
+   },
+   "transform": "BUR_debt_to_credit = BUR_debt_sum / BUR_credit_sum if BUR_credit_sum > 0, else missing",
+   "coefficient": -0.6457273050647226,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "<= 0.023",
+     "woe": 0.4104610173779452,
+     "points_unrounded": 54.141357851760034,
+     "points": 54,
+     "special": false
+    },
+    {
+     "label": "(0.023, 0.12]",
+     "woe": 0.30152910493561297,
+     "points_unrounded": 52.11176551611465,
+     "points": 52,
+     "special": false
+    },
+    {
+     "label": "(0.12, 0.32]",
+     "woe": 0.15513255942707507,
+     "points_unrounded": 49.38414144280753,
+     "points": 49,
+     "special": false
+    },
+    {
+     "label": "(0.32, 0.43]",
+     "woe": 0.00801541530721689,
+     "points_unrounded": 46.6430913551597,
+     "points": 47,
+     "special": false
+    },
+    {
+     "label": "(0.43, 0.55]",
+     "woe": -0.1311181461853165,
+     "points_unrounded": 44.05078939602735,
+     "points": 44,
+     "special": false
+    },
+    {
+     "label": "> 0.55",
+     "woe": -0.42900666811835875,
+     "points_unrounded": 38.500604446212016,
+     "points": 39,
+     "special": false
+    },
+    {
+     "label": "Missing",
+     "woe": 0.09759486138068452,
+     "points_unrounded": 48.3121133442698,
+     "points": 48,
+     "special": true
+    },
+    {
+     "label": "No bureau history",
+     "woe": -0.2502471619011185,
+     "points_unrounded": 41.83120716499135,
+     "points": 42,
+     "special": true
+    }
+   ],
+   "bureau_field": true,
+   "edges": [
+    0.023,
+    0.12,
+    0.32,
+    0.43,
+    0.55
+   ],
+   "bin_labels": [
+    "<= 0.023",
+    "(0.023, 0.12]",
+    "(0.12, 0.32]",
+    "(0.32, 0.43]",
+    "(0.43, 0.55]",
+    "> 0.55"
+   ],
+   "discrete": false,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "missing_supported": true,
+   "no_history_supported": true
+  },
+  {
+   "name": "BUR_days_since_recent_credit",
+   "label": "Days since most recent bureau credit",
+   "description": "Days between the most recent bureau credit opening and the application.",
+   "input": {
+    "kind": "number",
+    "field": "days_since_recent_credit",
+    "min": 0,
+    "max": 2922,
+    "step": 1,
+    "unit": "days",
+    "allow_missing": false
+   },
+   "transform": "BUR_days_since_recent_credit = -max(DAYS_CREDIT) = entered days",
+   "coefficient": -0.5925858035557203,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "<= 68",
+     "woe": -0.480394863262794,
+     "points_unrounded": 38.27976083243358,
+     "points": 38,
+     "special": false
+    },
+    {
+     "label": "(68, 230]",
+     "woe": -0.12381035996852449,
+     "points_unrounded": 44.376789583223626,
+     "points": 44,
+     "special": false
+    },
+    {
+     "label": "(230, 340]",
+     "woe": 0.10829605630304538,
+     "points_unrounded": 48.345440716901045,
+     "points": 48,
+     "special": false
+    },
+    {
+     "label": "(340, 450]",
+     "woe": 0.2545173963381168,
+     "points_unrounded": 50.84559343227903,
+     "points": 51,
+     "special": false
+    },
+    {
+     "label": "(450, 750]",
+     "woe": 0.31356466227890445,
+     "points_unrounded": 51.855207912915695,
+     "points": 52,
+     "special": false
+    },
+    {
+     "label": "> 750",
+     "woe": 0.3722381431417016,
+     "points_unrounded": 52.85843126228875,
+     "points": 53,
+     "special": false
+    },
+    {
+     "label": "No bureau history",
+     "woe": -0.2503049414175973,
+     "points_unrounded": 42.2139331136095,
+     "points": 42,
+     "special": true
+    }
+   ],
+   "bureau_field": true,
+   "edges": [
+    68.0,
+    230.0,
+    340.0,
+    450.0,
+    750.0
+   ],
+   "bin_labels": [
+    "<= 68",
+    "(68, 230]",
+    "(230, 340]",
+    "(340, 450]",
+    "(450, 750]",
+    "> 750"
+   ],
+   "discrete": false,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "missing_supported": false,
+   "no_history_supported": true
+  },
+  {
+   "name": "OCCUPATION_TYPE",
+   "label": "Occupation",
+   "description": "Occupation category reported on the application.",
+   "input": {
+    "kind": "category",
+    "field": "occupation",
+    "allow_missing": true,
+    "missing_label": "Not reported"
+   },
+   "transform": "OCCUPATION_TYPE = selected level",
+   "coefficient": -0.34970049108633805,
+   "type": "categorical",
+   "attributes": [
+    {
+     "label": "Low-skill Laborers, Waiters/barmen staff, Drivers",
+     "woe": -0.45881917906694936,
+     "points_unrounded": 41.86416216349655,
+     "points": 42,
+     "special": false
+    },
+    {
+     "label": "Security staff, Laborers",
+     "woe": -0.2916967418095644,
+     "points_unrounded": 43.55046487147962,
+     "points": 44,
+     "special": false
+    },
+    {
+     "label": "Cleaning staff, Cooking staff, Sales staff +2 more",
+     "woe": -0.1565849387882541,
+     "points_unrounded": 44.91377313250273,
+     "points": 45,
+     "special": false
+    },
+    {
+     "label": "Private service staff, Managers, HR staff",
+     "woe": 0.22416383776398016,
+     "points_unrounded": 48.75561330368478,
+     "points": 49,
+     "special": false
+    },
+    {
+     "label": "High skill tech staff, Medicine staff",
+     "woe": 0.26920527387509086,
+     "points_unrounded": 49.21009145115601,
+     "points": 49,
+     "special": false
+    },
+    {
+     "label": "Secretaries, Core staff, Accountants",
+     "woe": 0.3862015855994752,
+     "points_unrounded": 50.390610360062375,
+     "points": 50,
+     "special": false
+    },
+    {
+     "label": "Missing",
+     "woe": 0.1929696658654332,
+     "points_unrounded": 48.44085714401488,
+     "points": 48,
+     "special": true
+    },
+    {
+     "label": "Unseen",
+     "woe": 0.0,
+     "points_unrounded": 46.4937501280592,
+     "points": 46,
+     "special": true
+    }
+   ],
+   "bureau_field": false,
+   "groups": {
+    "Low-skill Laborers": "Low-skill Laborers, Waiters/barmen staff, Drivers",
+    "Waiters/barmen staff": "Low-skill Laborers, Waiters/barmen staff, Drivers",
+    "Drivers": "Low-skill Laborers, Waiters/barmen staff, Drivers",
+    "Security staff": "Security staff, Laborers",
+    "Laborers": "Security staff, Laborers",
+    "Cleaning staff": "Cleaning staff, Cooking staff, Sales staff +2 more",
+    "Cooking staff": "Cleaning staff, Cooking staff, Sales staff +2 more",
+    "Sales staff": "Cleaning staff, Cooking staff, Sales staff +2 more",
+    "Realty agents": "Cleaning staff, Cooking staff, Sales staff +2 more",
+    "IT staff": "Cleaning staff, Cooking staff, Sales staff +2 more",
+    "Private service staff": "Private service staff, Managers, HR staff",
+    "Managers": "Private service staff, Managers, HR staff",
+    "HR staff": "Private service staff, Managers, HR staff",
+    "High skill tech staff": "High skill tech staff, Medicine staff",
+    "Medicine staff": "High skill tech staff, Medicine staff",
+    "Secretaries": "Secretaries, Core staff, Accountants",
+    "Core staff": "Secretaries, Core staff, Accountants",
+    "Accountants": "Secretaries, Core staff, Accountants"
+   },
+   "boundary_rule": "level -> group; level not seen in dev_train -> Unseen (WOE 0)",
+   "missing_supported": true,
+   "no_history_supported": false
+  },
+  {
+   "name": "age_years",
+   "label": "Age",
+   "description": "Age at application.",
+   "input": {
+    "kind": "number",
+    "field": "age_input",
+    "min": 18,
+    "max": 100,
+    "step": 1,
+    "unit": "years",
+    "allow_missing": false
+   },
+   "transform": "DAYS_BIRTH = -round(age x 365.25); age_years = -DAYS_BIRTH / 365.25",
+   "coefficient": -0.20538310343693142,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "<= 32",
+     "woe": -0.390517690692725,
+     "points_unrounded": 44.17950179780694,
+     "points": 44,
+     "special": false
+    },
+    {
+     "label": "(32, 36]",
+     "woe": -0.20955253641440177,
+     "points_unrounded": 45.25192006746218,
+     "points": 45,
+     "special": false
+    },
+    {
+     "label": "(36, 43]",
+     "woe": -0.06366678582255157,
+     "points_unrounded": 46.11645415326992,
+     "points": 46,
+     "special": false
+    },
+    {
+     "label": "(43, 52]",
+     "woe": 0.044701349772076286,
+     "points_unrounded": 46.75865496216938,
+     "points": 47,
+     "special": false
+    },
+    {
+     "label": "(52, 56]",
+     "woe": 0.24640187383475592,
+     "points_unrounded": 47.953953183346115,
+     "points": 48,
+     "special": false
+    },
+    {
+     "label": "> 56",
+     "woe": 0.4109513539779655,
+     "points_unrounded": 48.92909046583337,
+     "points": 49,
+     "special": false
+    }
+   ],
+   "bureau_field": false,
+   "edges": [
+    32.0,
+    36.0,
+    43.0,
+    52.0,
+    56.0
+   ],
+   "bin_labels": [
+    "<= 32",
+    "(32, 36]",
+    "(36, 43]",
+    "(43, 52]",
+    "(52, 56]",
+    "> 56"
+   ],
+   "discrete": false,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "missing_supported": false,
+   "no_history_supported": false
+  },
+  {
+   "name": "ORGANIZATION_TYPE",
+   "label": "Employer type",
+   "description": "Type of organisation the applicant works for (XNA = not employed).",
+   "input": {
+    "kind": "category",
+    "field": "organisation",
+    "allow_missing": false,
+    "missing_label": "Not reported"
+   },
+   "transform": "ORGANIZATION_TYPE = selected level",
+   "coefficient": -0.36637948488923855,
+   "type": "categorical",
+   "attributes": [
+    {
+     "label": "Transport: type 3, Mobile, Realtor +21 more",
+     "woe": -0.20295476666622375,
+     "points_unrounded": 44.34821841553264,
+     "points": 44,
+     "special": false
+    },
+    {
+     "label": "Postal, Business Entity Type 1, Other +6 more",
+     "woe": 0.04552566863244548,
+     "points_unrounded": 46.975023701424064,
+     "points": 47,
+     "special": false
+    },
+    {
+     "label": "Insurance, Culture, Industry: type 5 +22 more",
+     "woe": 0.34927127142811154,
+     "points_unrounded": 50.18606345202211,
+     "points": 50,
+     "special": false
+    },
+    {
+     "label": "Unseen",
+     "woe": 0.0,
+     "points_unrounded": 46.4937501280592,
+     "points": 46,
+     "special": true
+    }
+   ],
+   "bureau_field": false,
+   "groups": {
+    "Transport: type 3": "Transport: type 3, Mobile, Realtor +21 more",
+    "Mobile": "Transport: type 3, Mobile, Realtor +21 more",
+    "Realtor": "Transport: type 3, Mobile, Realtor +21 more",
+    "Cleaning": "Transport: type 3, Mobile, Realtor +21 more",
+    "Trade: type 1": "Transport: type 3, Mobile, Realtor +21 more",
+    "Construction": "Transport: type 3, Mobile, Realtor +21 more",
+    "Restaurant": "Transport: type 3, Mobile, Realtor +21 more",
+    "Security": "Transport: type 3, Mobile, Realtor +21 more",
+    "Agriculture": "Transport: type 3, Mobile, Realtor +21 more",
+    "Industry: type 3": "Transport: type 3, Mobile, Realtor +21 more",
+    "Industry: type 4": "Transport: type 3, Mobile, Realtor +21 more",
+    "Self-employed": "Transport: type 3, Mobile, Realtor +21 more",
+    "Transport: type 4": "Transport: type 3, Mobile, Realtor +21 more",
+    "Legal Services": "Transport: type 3, Mobile, Realtor +21 more",
+    "Industry: type 1": "Transport: type 3, Mobile, Realtor +21 more",
+    "Business Entity Type 3": "Transport: type 3, Mobile, Realtor +21 more",
+    "Industry: type 11": "Transport: type 3, Mobile, Realtor +21 more",
+    "Trade: type 3": "Transport: type 3, Mobile, Realtor +21 more",
+    "Trade: type 7": "Transport: type 3, Mobile, Realtor +21 more",
+    "Industry: type 7": "Transport: type 3, Mobile, Realtor +21 more",
+    "Industry: type 6": "Transport: type 3, Mobile, Realtor +21 more",
+    "Industry: type 8": "Transport: type 3, Mobile, Realtor +21 more",
+    "Business Entity Type 2": "Transport: type 3, Mobile, Realtor +21 more",
+    "Telecom": "Transport: type 3, Mobile, Realtor +21 more",
+    "Postal": "Postal, Business Entity Type 1, Other +6 more",
+    "Business Entity Type 1": "Postal, Business Entity Type 1, Other +6 more",
+    "Other": "Postal, Business Entity Type 1, Other +6 more",
+    "Hotel": "Postal, Business Entity Type 1, Other +6 more",
+    "Electricity": "Postal, Business Entity Type 1, Other +6 more",
+    "Housing": "Postal, Business Entity Type 1, Other +6 more",
+    "Industry: type 9": "Postal, Business Entity Type 1, Other +6 more",
+    "Advertising": "Postal, Business Entity Type 1, Other +6 more",
+    "Transport: type 2": "Postal, Business Entity Type 1, Other +6 more",
+    "Insurance": "Insurance, Culture, Industry: type 5 +22 more",
+    "Culture": "Insurance, Culture, Industry: type 5 +22 more",
+    "Industry: type 5": "Insurance, Culture, Industry: type 5 +22 more",
+    "Bank": "Insurance, Culture, Industry: type 5 +22 more",
+    "Government": "Insurance, Culture, Industry: type 5 +22 more",
+    "Emergency": "Insurance, Culture, Industry: type 5 +22 more",
+    "Transport: type 1": "Insurance, Culture, Industry: type 5 +22 more",
+    "Services": "Insurance, Culture, Industry: type 5 +22 more",
+    "Medicine": "Insurance, Culture, Industry: type 5 +22 more",
+    "School": "Insurance, Culture, Industry: type 5 +22 more",
+    "Trade: type 4": "Insurance, Culture, Industry: type 5 +22 more",
+    "Industry: type 2": "Insurance, Culture, Industry: type 5 +22 more",
+    "Kindergarten": "Insurance, Culture, Industry: type 5 +22 more",
+    "Religion": "Insurance, Culture, Industry: type 5 +22 more",
+    "Not employed (XNA)": "Insurance, Culture, Industry: type 5 +22 more",
+    "Security Ministries": "Insurance, Culture, Industry: type 5 +22 more",
+    "Trade: type 6": "Insurance, Culture, Industry: type 5 +22 more",
+    "Military": "Insurance, Culture, Industry: type 5 +22 more",
+    "University": "Insurance, Culture, Industry: type 5 +22 more",
+    "Trade: type 2": "Insurance, Culture, Industry: type 5 +22 more",
+    "Police": "Insurance, Culture, Industry: type 5 +22 more",
+    "Industry: type 10": "Insurance, Culture, Industry: type 5 +22 more",
+    "Industry: type 12": "Insurance, Culture, Industry: type 5 +22 more",
+    "Trade: type 5": "Insurance, Culture, Industry: type 5 +22 more",
+    "Industry: type 13": "Insurance, Culture, Industry: type 5 +22 more"
+   },
+   "boundary_rule": "level -> group; level not seen in dev_train -> Unseen (WOE 0)",
+   "missing_supported": false,
+   "no_history_supported": false
+  },
+  {
+   "name": "NAME_EDUCATION_TYPE",
+   "label": "Education",
+   "description": "Highest level of education achieved.",
+   "input": {
+    "kind": "category",
+    "field": "education",
+    "allow_missing": false,
+    "missing_label": "Not reported"
+   },
+   "transform": "NAME_EDUCATION_TYPE = selected level",
+   "coefficient": -0.6755473835637753,
+   "type": "categorical",
+   "attributes": [
+    {
+     "label": "Lower secondary, Secondary / secondary special, Incomplete higher",
+     "woe": -0.11277756792238326,
+     "points_unrounded": 44.29546978958603,
+     "points": 44,
+     "special": false
+    },
+    {
+     "label": "Higher education, Academic degree",
+     "woe": 0.44411220420146286,
+     "points_unrounded": 55.15046391039544,
+     "points": 55,
+     "special": false
+    },
+    {
+     "label": "Unseen",
+     "woe": 0.0,
+     "points_unrounded": 46.4937501280592,
+     "points": 46,
+     "special": true
+    }
+   ],
+   "bureau_field": false,
+   "groups": {
+    "Lower secondary": "Lower secondary, Secondary / secondary special, Incomplete higher",
+    "Secondary / secondary special": "Lower secondary, Secondary / secondary special, Incomplete higher",
+    "Incomplete higher": "Lower secondary, Secondary / secondary special, Incomplete higher",
+    "Higher education": "Higher education, Academic degree",
+    "Academic degree": "Higher education, Academic degree"
+   },
+   "boundary_rule": "level -> group; level not seen in dev_train -> Unseen (WOE 0)",
+   "missing_supported": false,
+   "no_history_supported": false
+  },
+  {
+   "name": "DAYS_LAST_PHONE_CHANGE",
+   "label": "Days since phone number changed",
+   "description": "How long before the application the phone number was last changed.",
+   "input": {
+    "kind": "number",
+    "field": "days_since_phone_change",
+    "min": 0,
+    "max": 5000,
+    "step": 1,
+    "unit": "days",
+    "allow_missing": false,
+    "missing_label": "Not reported"
+   },
+   "transform": "DAYS_LAST_PHONE_CHANGE = -entered days",
+   "coefficient": -0.6677995137992437,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "<= -2,500",
+     "woe": 0.48046609693134207,
+     "points_unrounded": 55.75166922306508,
+     "points": 56,
+     "special": false
+    },
+    {
+     "label": "(-2,500, -1,700]",
+     "woe": 0.3102083771015839,
+     "points_unrounded": 52.47103775801226,
+     "points": 52,
+     "special": false
+    },
+    {
+     "label": "(-1,700, -1,200]",
+     "woe": 0.220500581702184,
+     "points_unrounded": 50.742492253338156,
+     "points": 51,
+     "special": false
+    },
+    {
+     "label": "(-1,200, -760]",
+     "woe": 0.025153673292666892,
+     "points_unrounded": 46.9784267239169,
+     "points": 47,
+     "special": false
+    },
+    {
+     "label": "(-760, -380]",
+     "woe": -0.09962842406302545,
+     "points_unrounded": 44.57404779020573,
+     "points": 45,
+     "special": false
+    },
+    {
+     "label": "> -380",
+     "woe": -0.2288938052715889,
+     "points_unrounded": 42.08328215937916,
+     "points": 42,
+     "special": false
+    }
+   ],
+   "bureau_field": false,
+   "edges": [
+    -2500.0,
+    -1700.0,
+    -1200.0,
+    -760.0,
+    -380.0
+   ],
+   "bin_labels": [
+    "<= -2,500",
+    "(-2,500, -1,700]",
+    "(-1,700, -1,200]",
+    "(-1,200, -760]",
+    "(-760, -380]",
+    "> -380"
+   ],
+   "discrete": false,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "missing_supported": false,
+   "no_history_supported": false
+  },
+  {
+   "name": "REGION_RATING_CLIENT_W_CITY",
+   "label": "Region rating (with city)",
+   "description": "Lender's rating of the applicant's region, 1 (best) to 3, taking the city into account.",
+   "input": {
+    "kind": "category",
+    "field": "region_rating",
+    "numeric_levels": true,
+    "allow_missing": false
+   },
+   "transform": "REGION_RATING_CLIENT_W_CITY = selected rating",
+   "coefficient": -0.8101203801705767,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "1",
+     "woe": 0.5319404650396744,
+     "points_unrounded": 58.927929299586125,
+     "points": 59,
+     "special": false
+    },
+    {
+     "label": "2",
+     "woe": 0.019895377676438102,
+     "points_unrounded": 46.958807229318786,
+     "points": 47,
+     "special": false
+    },
+    {
+     "label": "3",
+     "woe": -0.37167732027526384,
+     "points_unrounded": 37.80574329640946,
+     "points": 38,
+     "special": false
+    }
+   ],
+   "bureau_field": false,
+   "edges": [
+    1.5,
+    2.5
+   ],
+   "bin_labels": [
+    "1",
+    "2",
+    "3"
+   ],
+   "discrete": true,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "levels": [
+    1.0,
+    2.0,
+    3.0
+   ],
+   "missing_supported": false,
+   "no_history_supported": false
+  },
+  {
+   "name": "FLOORSMAX_MEDI",
+   "label": "Building height (normalised)",
+   "description": "Normalised maximum number of floors of the applicant's building (median statistic, 0 to 1).",
+   "input": {
+    "kind": "number",
+    "field": "floors_max",
+    "min": 0,
+    "max": 1,
+    "step": 0.01,
+    "unit": "normalised 0-1",
+    "allow_missing": true,
+    "missing_label": "Not reported"
+   },
+   "transform": "FLOORSMAX_MEDI = entered value",
+   "coefficient": -0.5066094370243495,
+   "type": "numeric",
+   "attributes": [
+    {
+     "label": "<= 0.042",
+     "woe": -0.17799258898161857,
+     "points_unrounded": 43.891915255827875,
+     "points": 44,
+     "special": false
+    },
+    {
+     "label": "(0.042, 0.17]",
+     "woe": 0.07324440886379432,
+     "points_unrounded": 47.564411880147475,
+     "points": 48,
+     "special": false
+    },
+    {
+     "label": "> 0.17",
+     "woe": 0.37502643285057136,
+     "points_unrounded": 51.97575843291003,
+     "points": 52,
+     "special": false
+    },
+    {
+     "label": "Missing",
+     "woe": -0.13337897798807338,
+     "points_unrounded": 44.5440617835193,
+     "points": 45,
+     "special": true
+    }
+   ],
+   "bureau_field": false,
+   "edges": [
+    0.042,
+    0.17
+   ],
+   "bin_labels": [
+    "<= 0.042",
+    "(0.042, 0.17]",
+    "> 0.17"
+   ],
+   "discrete": false,
+   "boundary_rule": "right-inclusive: (lower, upper]; outer bins open-ended",
+   "missing_supported": true,
+   "no_history_supported": false
+  }
+ ],
+ "known_gaps": [
+  "BUR_days_since_recent_credit: the frozen model has no Missing attribute (no missing values in dev_train), so a missing value cannot be scored; the input requires a value.",
+  "age_years: the frozen model has no Missing attribute (no missing values in dev_train), so a missing value cannot be scored; the input requires a value.",
+  "ORGANIZATION_TYPE: the frozen model has no Missing attribute (no missing values in dev_train), so a missing value cannot be scored; the input requires a value.",
+  "NAME_EDUCATION_TYPE: the frozen model has no Missing attribute (no missing values in dev_train), so a missing value cannot be scored; the input requires a value.",
+  "DAYS_LAST_PHONE_CHANGE: the frozen model has no Missing attribute (no missing values in dev_train), so a missing value cannot be scored; the input requires a value.",
+  "REGION_RATING_CLIENT_W_CITY: the frozen model has no Missing attribute (no missing values in dev_train), so a missing value cannot be scored; the input requires a value."
+ ]
+}

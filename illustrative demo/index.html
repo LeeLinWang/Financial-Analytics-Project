@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home Improvement Scorecard</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <div class="brand-title">Home Improvement Credit Scorecard</div>
+        <div class="brand-sub" id="version-line">Loading model contract…</div>
+      </div>
+    </div>
+    <nav class="main-nav" aria-label="Main views">
+      <button class="nav-btn active" data-view="business">Business Dashboard</button>
+      <button class="nav-btn" data-view="applicant">Applicant Assessment</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="view-business" class="view">
+      <nav class="sub-nav" aria-label="Business dashboard sections">
+        <button class="sub-btn active" data-section="portfolio">Portfolio Overview</button>
+        <button class="sub-btn" data-section="policy">Policy Comparison</button>
+        <button class="sub-btn" data-section="monitoring">Model Monitoring</button>
+      </nav>
+      <div id="section-portfolio" class="section"></div>
+      <div id="section-policy" class="section hidden"></div>
+      <div id="section-monitoring" class="section hidden"></div>
+    </section>
+
+    <section id="view-applicant" class="view hidden"></section>
+  </main>
+
+  <footer class="footer" id="footer-line"></footer>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
