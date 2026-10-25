@@ -1,0 +1,31 @@
+# --- Source data and course materials: never commit (repo is public) ---
+IS453 Group Assignment - Data/
+data/
+*.csv
+*.xlsx
+*.xls
+*.pptx
+*.docx
+*.pdf
+*.zip
+*.pkl
+*.parquet
+
+# --- Borrower-level or generated outputs ---
+outputs/
+
+# --- Local configuration and credentials ---
+.env
+*.env
+config_local.*
+*.key
+*credentials*
+
+# --- Editor / OS / Python clutter ---
+.DS_Store
+*.swp
+*.swo
+.ipynb_checkpoints/
+__pycache__/
+.vscode/
+.idea/
