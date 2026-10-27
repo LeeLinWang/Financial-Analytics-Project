@@ -193,7 +193,7 @@ def main():
     assert set(final_vars) == set(CHARACTERISTIC_INFO), 'dashboard input mapping must cover exactly the final characteristics'
 
     nb_hash = hashlib.sha256(NOTEBOOK.read_bytes()).hexdigest()[:12]
-    version = {'model_version': f'HI-scorecard final (tuned, {len(final_vars)} characteristics)',
+    version = {'model_version': f'HI-scorecard final (scorecardpy, tuned, {len(final_vars)} characteristics)',
                'notebook': NOTEBOOK.name, 'notebook_sha256_12': nb_hash, 'git_commit': git_commit(),
                'fitted_on': 'dev_train', 'policy_selected_on': 'validation', 'evaluated_once_on': 'test'}
 
@@ -202,14 +202,17 @@ def main():
     intercept = float(final_model.intercept_[0])
     n = len(final_vars)
     characteristics = []
+    card = final_pipe['card']
     for var in final_vars:
         spec = specs[var]
-        rows = final_scorecard[final_scorecard['Variable'] == var]
         attributes = []
-        for _, r in rows.iterrows():
-            attributes.append({'label': r['Attribute / Bin'], 'woe': float(r['WOE']),
-                               'points_unrounded': float(r['Points (unrounded)']), 'points': int(r['Points']),
-                               'special': r['Attribute / Bin'] in (MISSING, NO_HISTORY, UNSEEN)})
+        # one entry per frozen Step 3 attribute; attributes merged for equal points share their group's WOE and points
+        for b, p in card[var][['bin', 'points']].values:
+            members = b.split('%,%')
+            for label in members:
+                attributes.append({'label': label, 'woe': float(maps[var][b]), 'points': int(p),
+                                   'merged_group': ' | '.join(members) if len(members) > 1 else None,
+                                   'special': label in (MISSING, NO_HISTORY, UNSEEN)})
         entry = {'name': var, **{k: v for k, v in CHARACTERISTIC_INFO[var].items()},
                  'coefficient': float(coef[var]), 'type': spec['type'], 'attributes': attributes,
                  'bureau_field': var.startswith('BUR_')}
@@ -241,15 +244,17 @@ def main():
                                    'BUR_ characteristics: missing value with no bureau record -> No bureau history bin',
                                    'Categorical level not seen in dev_train -> Unseen bin with WOE 0']},
         'model': {'intercept': intercept, 'n_characteristics': n, 'calibration': 'none (unweighted logistic regression, calibrated on dev_train)',
-                  'regularisation': 'L2, C = 1.0 (scikit-learn lbfgs)'},
+                  'regularisation': 'L2, C = 1.0 (scikit-learn lbfgs)', 'library': 'scorecardpy 0.1.9.7 (sc.woebin, sc.woebin_ply, sc.scorecard, sc.scorecard_ply)',
+                  'woe_convention': 'scorecardpy: WOE = ln(% of bads / % of goods), so a positive WOE means higher risk and every coefficient is positive'},
         'scaling': {'target_score': ns['TARGET_SCORE'], 'target_odds_good_bad': ns['TARGET_ODDS'], 'pdo': ns['PDO'],
                     'factor': float(FACTOR), 'offset': float(OFFSET),
-                    'points_formula': 'points_ij = Factor x (-(beta_i x WOE_ij + beta_0 / n)) + Offset / n',
-                    'score_formula': 'score = Offset - Factor x z, z = beta_0 + sum(beta_i x WOE_i)',
-                    'probability_formula': 'p = 1 / (1 + exp((score - Offset) / Factor))',
-                    'rounding': 'Each attribute rounded to the nearest whole point for display; the decision uses the exact (unrounded) score'},
-        'policy': {'cutoff': int(POLICY_CUTOFF), 'operator': '>=', 'score_used': 'exact (unrounded)',
-                   'rule': f'Approve if exact score >= {POLICY_CUTOFF}',
+                    'points_formula': 'points_ij = round(-Factor x beta_i x WOE_ij + (Offset - Factor x beta_0) / n)  (sc.scorecard, basepoints_eq0 = True)',
+                    'score_formula': 'score = sum of the attribute points (sc.scorecard_ply)',
+                    'probability_formula': 'p = 1 / (1 + exp(-z)), z = beta_0 + sum(beta_i x WOE_i)',
+                    'rounding': 'scorecardpy rounds every attribute to a whole point; the score and the decision use the sum of these points',
+                    'distinct_points': 'Attributes of a characteristic that rounded to the same points were merged and the model refitted, so every attribute has its own points'},
+        'policy': {'cutoff': int(POLICY_CUTOFF), 'operator': '>=', 'score_used': 'scorecard total (sum of whole-number points)',
+                   'rule': f'Approve if score >= {POLICY_CUTOFF}',
                    'basis': 'Lowest cutoff whose accepted observed bad rate on validation is at most 6% (risk-appetite assumption)',
                    'risk_limit': float(ns['RISK_LIMIT'])},
         'pricing': {'band_edges': [None if not np.isfinite(e) else float(e) for e in ns['SCORE_BANDS']],
@@ -264,30 +269,34 @@ def main():
                        for c in characteristics if not c['missing_supported']],
     }
 
-    # consistency of the contract itself: unrounded points sum to the score formula
+    # consistency of the contract itself: points follow the sc.scorecard formula; observed attributes have distinct points
     for c in characteristics:
         for a in c['attributes']:
-            expected = FACTOR * (-(c['coefficient'] * a['woe'] + intercept / n)) + OFFSET / n
-            assert abs(expected - a['points_unrounded']) < 1e-9
+            expected = -FACTOR * c['coefficient'] * a['woe'] + (OFFSET - FACTOR * intercept) / n
+            assert round(expected) == a['points'], (c['name'], a['label'])
+        groups = {(a['merged_group'] or a['label']): a['points'] for a in c['attributes'] if a['label'] != UNSEEN}
+        assert len(set(groups.values())) == len(groups), f"{c['name']}: attributes share points"
 
     # ------------------------------------------------------------ private row-level parity (contract maths vs notebook)
     def contract_score(df):
         z = np.full(len(df), intercept)
+        score = np.zeros(len(df))
         for c in characteristics:
             labels = assign_bins(df, c['name'], specs[c['name']])
-            woe = labels.map({a['label']: a['woe'] for a in c['attributes']}).astype(float).values
-            z += c['coefficient'] * woe
-        return OFFSET - FACTOR * z
+            z += c['coefficient'] * labels.map({a['label']: a['woe'] for a in c['attributes']}).astype(float).values
+            score += labels.map({a['label']: a['points'] for a in c['attributes']}).astype(float).values
+        return score, 1 / (1 + np.exp(-z))
 
     verification = {'version': version, 'checks': []}
     for name, df in [('dev_train', dev_train), ('validation', validation), ('test', test)]:
         ref = final_scores(df)
-        mine = contract_score(df)
+        mine, p_mine = contract_score(df)
         diff = float(np.max(np.abs(mine - ref['score'].values)))
+        p_diff = float(np.max(np.abs(p_mine - ref['p_bad'].values)))
         same_decisions = bool(((mine >= POLICY_CUTOFF) == (ref['score'].values >= POLICY_CUTOFF)).all())
-        verification['checks'].append({'check': f'contract score vs notebook final_scores ({name})', 'rows': len(df),
-                                       'max_abs_score_difference': diff, 'identical_decisions': same_decisions,
-                                       'passed': diff < 1e-8 and same_decisions})
+        verification['checks'].append({'check': f'contract score and p_bad vs notebook final_scores / sc.scorecard_ply ({name})', 'rows': len(df),
+                                       'max_abs_score_difference': diff, 'max_abs_p_bad_difference': p_diff, 'identical_decisions': same_decisions,
+                                       'passed': diff == 0 and p_diff < 1e-12 and same_decisions})
 
     # ------------------------------------------------------------ aggregates
     y_valid, y_test = validation[TARGET].values, test[TARGET].values
@@ -521,7 +530,7 @@ def main():
         balances, interest = schedule(principal, rate, months)
         fixtures.append(clean({'inputs': case, 'expected': {
             'features': {k: feature_rows.iloc[i][k] for k in final_vars + ['no_bureau_history']},
-            'bins': bins, 'points': points, 'rounded_total': int(sum(points.values())),
+            'bins': bins, 'points': points, 'points_total': int(sum(points.values())),
             'score': score, 'p_bad': float(scored['p_bad'].iloc[i]), 'approved': bool(approved), 'band': band,
             'rate': rate if approved else None, 'monthly_payment': payment if approved else None,
             'total_interest': float(interest.sum()) if approved else None}}))

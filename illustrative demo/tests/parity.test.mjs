@@ -31,9 +31,9 @@ fixtures.cases.forEach((c, i) => {
     if (r.bin !== e.bins[r.name]) fail(`case ${i}: ${r.name} bin ${r.bin} vs ${e.bins[r.name]}`);
     if (r.points !== e.points[r.name]) fail(`case ${i}: ${r.name} points ${r.points} vs ${e.points[r.name]}`);
   }
-  if (res.roundedTotal !== e.rounded_total) fail(`case ${i}: rounded total ${res.roundedTotal} vs ${e.rounded_total}`);
-  if (!close(res.score, e.score, 1e-9)) fail(`case ${i}: score ${res.score} vs ${e.score}`);
-  if (!close(res.unroundedTotal, e.score, 1e-9)) fail(`case ${i}: unrounded points do not sum to score`);
+  if (res.score !== e.points_total) fail(`case ${i}: points total ${res.score} vs ${e.points_total}`);
+  if (res.score !== e.score) fail(`case ${i}: score ${res.score} vs sc.scorecard_ply ${e.score}`);
+  if (Math.abs(res.score - res.exactScore) > res.n * 0.5 + 1e-9) fail(`case ${i}: points total too far from the exact scaled log-odds`);
   if (!close(res.pBad, e.p_bad, 1e-12)) fail(`case ${i}: p ${res.pBad} vs ${e.p_bad}`);
   if (res.approved !== e.approved) fail(`case ${i}: decision ${res.approved} vs ${e.approved}`);
   if (res.band !== e.band) fail(`case ${i}: band ${res.band} vs ${e.band}`);

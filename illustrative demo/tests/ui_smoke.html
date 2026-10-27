@@ -50,7 +50,7 @@ async function run() {
   const pts = rows.map((r) => parseInt(r.querySelector('td.pts').textContent, 10));
   const total = parseInt(d.querySelector('#assess-breakdown tfoot td.pts').textContent, 10);
   check('breakdown lists 12 characteristics', rows.length === 12, `${rows.length} rows`);
-  check('rounded points reconcile with the displayed total', pts.reduce((a, b) => a + b, 0) === total, `${total}`);
+  check('attribute points reconcile with the displayed score', pts.reduce((a, b) => a + b, 0) === total, `${total}`);
 
   // expandable detail
   d.querySelector('#assess-breakdown button.expand').click(); await wait(30);
@@ -87,7 +87,7 @@ async function run() {
   const wf = d.getElementById('wi-field'); wf.value = 'ext_source_1'; wf.dispatchEvent(new Event('change')); await wait(30);
   const wv = d.getElementById('wi-value'); wv.value = '0.8'; wv.dispatchEvent(new Event('input')); await wait(30);
   const wiText = d.getElementById('wi-result').textContent;
-  check('what-if shows original and revised score', wiText.includes('Exact score') && wiText.includes(before.toFixed(1)));
+  check('what-if shows original and revised score', wiText.includes('Score') && wiText.includes(before.toFixed(0)));
   check('what-if leaves the main applicant unchanged', Math.abs(score(d) - before) < 1e-9);
 
   // navigation and monitoring modes

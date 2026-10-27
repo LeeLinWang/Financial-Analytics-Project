@@ -133,14 +133,13 @@ export function scoreApplicant(contract, inp) {
     if (!attr) return { name: ch.name, label: ch.label, value, bin, unsupported: true };
     z += ch.coefficient * attr.woe;
     return { name: ch.name, label: ch.label, value, bin, woe: attr.woe, coefficient: ch.coefficient,
-             pointsUnrounded: attr.points_unrounded, points: attr.points, special: attr.special };
+             points: attr.points, mergedGroup: attr.merged_group, special: attr.special };
   });
   if (rows.some((r) => r.unsupported)) return { features, rows, unsupported: rows.filter((r) => r.unsupported).map((r) => r.name) };
 
-  const score = offset - factor * z;
-  const pBad = 1 / (1 + Math.exp((score - offset) / factor));
-  const roundedTotal = rows.reduce((s, r) => s + r.points, 0);
-  const unroundedTotal = rows.reduce((s, r) => s + r.pointsUnrounded, 0);
+  const score = rows.reduce((s, r) => s + r.points, 0);        // scorecard total, as sc.scorecard_ply
+  const exactScore = offset - factor * z;                       // scaled log-odds before rounding
+  const pBad = 1 / (1 + Math.exp(-z));
   const approved = score >= contract.policy.cutoff;
   const band = bandOf(contract, score);
   let offer = null;
@@ -149,5 +148,5 @@ export function scoreApplicant(contract, inp) {
     const principal = Number(inp.principal);
     offer = { band, rate, principal, months: contract.pricing.term_months, ...repayment(principal, rate, contract.pricing.term_months) };
   }
-  return { features, rows, z, score, unroundedTotal, roundedTotal, pBad, approved, band, offer, n };
+  return { features, rows, z, score, exactScore, pBad, approved, band, offer, n };
 }

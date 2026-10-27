@@ -227,12 +227,12 @@ function renderPolicy() {
     <details style="margin-top:16px">
       <summary>How scoring works</summary>
       ${ct ? `<div class="grid grid-2">
-        <div><p>The scorecard uses <strong>${ct.model.n_characteristics} characteristics</strong>. Each applicant value falls into one attribute (bin) per characteristic. Each attribute has a Weight of Evidence: <em>WOE = ln(% of goods / % of bads)</em>, so a positive WOE means lower risk than average.</p>
-          <p>A logistic regression on the WOE values estimates the log-odds of payment difficulty: <em>z = β₀ + Σ βᵢ·WOEᵢ</em>. All coefficients are negative, as expected.</p>
-          <p>Points per attribute: <em>Factor × (−(βᵢ·WOEᵢⱼ + β₀/n)) + Offset/n</em>. The intercept and offset are shared equally across the ${ct.model.n_characteristics} characteristics, so the points add up exactly to the score.</p></div>
+        <div><p>The scorecard uses <strong>${ct.model.n_characteristics} characteristics</strong>. Each applicant value falls into one attribute (bin) per characteristic. The scorecard is built with scorecardpy, as in the Week 11 lab. Each attribute has a Weight of Evidence in scorecardpy's convention: <em>WOE = ln(% of bads / % of goods)</em>, so a positive WOE means higher risk than average.</p>
+          <p>A logistic regression on the WOE values estimates the log-odds of payment difficulty: <em>z = β₀ + Σ βᵢ·WOEᵢ</em>. All coefficients are positive, as expected with this WOE.</p>
+          <p>Points per attribute (<code>sc.scorecard</code>, base points spread across the characteristics): <em>round(−Factor·βᵢ·WOEᵢⱼ + (Offset − Factor·β₀)/n)</em>. The score is the sum of the ${ct.model.n_characteristics} attribute points. Attributes that would have received the same points were merged, so every attribute of a characteristic has its own points.</p></div>
         <div><p><strong>Scaling.</strong> Target score ${ct.scaling.target_score} at good:bad odds of ${ct.scaling.target_odds_good_bad}:1; every ${ct.scaling.pdo} points (PDO) doubles the odds. Factor = ${fmtNum(ct.scaling.factor, 4)}, Offset = ${fmtNum(ct.scaling.offset, 4)}.</p>
           <p><strong>Scaling is not the cutoff.</strong> The target score only anchors the points scale. The approval cutoff (${ct.policy.cutoff}) is a separate lending decision based on the risk appetite; at the cutoff the odds are about ${fmtNum(rows[recIdx]?.boundary_good_bad_odds, 1)}:1.</p>
-          <p>Probability shown for an applicant: <em>p = 1 / (1 + e<sup>(score − Offset)/Factor</sup>)</em>, the estimated probability of payment difficulties (TARGET = 1).</p></div></div>` : unavailable('model contract')}
+          <p>Probability shown for an applicant: <em>p = 1 / (1 + e<sup>−z</sup>)</em>, the model's estimated probability of payment difficulties (TARGET = 1). Because points are rounded, the score can differ by a few points from the exact scaled log-odds, Offset − Factor × z.</p></div></div>` : unavailable('model contract')}
     </details>`;
 
   const labels = rows.map((r) => String(r.cutoff));
@@ -476,7 +476,7 @@ function averagePoints() {
   const out = {};
   for (const ch of state.contract.characteristics) {
     const f = feats?.find((x) => x.name === ch.name);
-    const pts = Object.fromEntries(ch.attributes.map((a) => [a.label, a.points_unrounded]));
+    const pts = Object.fromEntries(ch.attributes.map((a) => [a.label, a.points]));
     if (f && f.bins.every((b) => b in pts)) out[ch.name] = f.bins.reduce((s, b, i) => s + f.reference[i] * pts[b], 0);
   }
   return out;
@@ -488,13 +488,13 @@ function renderReasons(res) {
   const cutoff = ct.policy.cutoff;
   const gap = res.score - cutoff;
   const avgTotal = Object.values(avg).reduce((s, v) => s + v, 0);
-  const items = res.rows.filter((r) => r.name in avg).map((r) => ({ ...r, diff: r.pointsUnrounded - avg[r.name] }));
+  const items = res.rows.filter((r) => r.name in avg).map((r) => ({ ...r, diff: r.points - avg[r.name] }));
   const up = items.filter((x) => x.diff > 0.5).sort((a, b) => b.diff - a.diff).slice(0, 4);
   const down = items.filter((x) => x.diff < -0.5).sort((a, b) => a.diff - b.diff).slice(0, 4);
   const line = (x) => `<li><strong>${esc(x.label)}</strong>: ${esc(x.bin)} → ${x.points} pts <span class="${x.diff >= 0 ? 'diff-up' : 'diff-down'}">(${x.diff >= 0 ? '+' : ''}${fmtNum(x.diff, 1)} vs average)</span></li>`;
   const verdict = res.approved
-    ? `The score of ${fmtNum(res.score, 1)} is ${fmtNum(gap, 1)} points above the cutoff of ${cutoff}, so the application is approved.`
-    : `The score of ${fmtNum(res.score, 1)} is ${fmtNum(-gap, 1)} points below the cutoff of ${cutoff}, so the application is declined.`;
+    ? `The score of ${fmtNum(res.score, 0)} is ${fmtNum(gap, 0)} points above the cutoff of ${cutoff}, so the application is approved.`
+    : `The score of ${fmtNum(res.score, 0)} is ${fmtNum(-gap, 0)} points below the cutoff of ${cutoff}, so the application is declined.`;
   const detail = Object.keys(avg).length ? `
     ${up.length ? `<p class="reason-head">Raising the score most</p><ul class="compact">${up.map(line).join('')}</ul>` : ''}
     ${down.length ? `<p class="reason-head">Lowering the score most</p><ul class="compact">${down.map(line).join('')}</ul>` : ''}
@@ -534,13 +534,13 @@ function renderResults() {
         ${state.expanded.has(r.name) ? `<tr class="detail"><td colspan="5">
           <strong>${esc(r.name)}</strong>: ${esc(byName[r.name].description)}<br>
           Transformation: ${esc(byName[r.name].transform)}<br>
-          WOE ${fmtNum(r.woe, 4)} · coefficient ${fmtNum(r.coefficient, 4)} · points ${fmtNum(r.pointsUnrounded, 3)} (unrounded) → ${r.points} (rounded)</td></tr>` : ''}`).join('')}
+          WOE (scorecardpy) ${fmtNum(r.woe, 4)} · coefficient ${fmtNum(r.coefficient, 4)} · points ${r.points}${r.mergedGroup ? `<br>Merged attribute (equal points): ${esc(r.mergedGroup)}` : ''}</td></tr>` : ''}`).join('')}
       </tbody>
       <tfoot>
-        <tr><td colspan="3">Total of rounded points</td><td class="pts">${res.roundedTotal}</td><td></td></tr>
-        <tr><td colspan="3">Exact score (sum of unrounded points = Offset − Factor × z)</td><td class="pts">${fmtNum(res.score, 2)}</td><td></td></tr>
+        <tr><td colspan="3">Score (sum of points, as sc.scorecard_ply)</td><td class="pts">${res.score}</td><td></td></tr>
+        <tr><td colspan="3">Exact scaled log-odds before rounding (Offset − Factor × z)</td><td class="pts">${fmtNum(res.exactScore, 2)}</td><td></td></tr>
       </tfoot></table></div>
-    <p class="note">The intercept and offset are shared equally across all ${res.n} characteristics, so the points add up to the score. Point differences show how the scorecard ranks risk; they are not causal effects. Rounding moves the total by ${fmtNum(res.roundedTotal - res.score, 2)} points; the decision uses the exact score.</p>`;
+    <p class="note">The base points (offset and intercept) are shared equally across all ${res.n} characteristics, so the attribute points add up to the score. Point differences show how the scorecard ranks risk; they are not causal effects. Rounding each attribute to a whole point moves the total by ${fmtNum(res.score - res.exactScore, 2)} points from the exact value; the decision uses the scorecard total.</p>`;
   bd.querySelectorAll('button.expand').forEach((b) => b.addEventListener('click', () => {
     const n = b.dataset.name;
     if (state.expanded.has(n)) state.expanded.delete(n); else state.expanded.add(n);
@@ -551,7 +551,7 @@ function renderResults() {
   const lo = 480; const hi = 680;
   const pos = (s) => Math.min(100, Math.max(0, ((s - lo) / (hi - lo)) * 100));
   dec.innerHTML = `
-    <div class="score-hero"><div class="score">${fmtNum(res.score, 1)}</div><div class="sub">Exact score · rounded points total ${res.roundedTotal}</div></div>
+    <div class="score-hero"><div class="score">${fmtNum(res.score, 0)}</div><div class="sub">Scorecard points total · exact log-odds score ${fmtNum(res.exactScore, 1)}</div></div>
     <div class="gauge" aria-hidden="true"><div class="cut" style="left:${pos(cutoff)}%"><span>cutoff ${cutoff}</span></div><div class="marker" style="left:${pos(res.score)}%"></div></div>
     <div class="decision ${res.approved ? 'approve' : 'reject'}">${res.approved ? '✓ Approved (illustrative)' : '✕ Declined (illustrative)'}</div>
     ${renderReasons(res)}
@@ -628,7 +628,7 @@ function drawWhatIf(original) {
       <tr><td>Input: ${esc(WHATIF_FIELDS.find((x) => x.id === whatIf.field).label)}</td><td>${esc(state.inputs[whatIf.field] ?? 'missing')}</td><td>${esc(whatIf.value)}</td></tr>
       ${changed.length ? changed.map((r) => { const o = original.rows.find((x) => x.name === r.name); return `<tr><td>${esc(r.label)}</td><td>${displayValue(r.name, original.features)} · ${esc(o.bin)} · <strong>${o.points}</strong> pts</td><td>${displayValue(r.name, revised.features)} · ${esc(r.bin)} · <strong>${r.points}</strong> pts</td></tr>`; }).join('')
         : '<tr><td colspan="3">No characteristic changes attribute: the revised value falls in the same bin.</td></tr>'}
-      <tr><td><strong>Exact score</strong></td><td>${fmtNum(original.score, 1)}</td><td>${fmtNum(revised.score, 1)} <span class="${delta >= 0 ? 'diff-up' : 'diff-down'}">(${delta >= 0 ? '+' : ''}${fmtNum(delta, 1)})</span></td></tr>
+      <tr><td><strong>Score</strong></td><td>${fmtNum(original.score, 0)}</td><td>${fmtNum(revised.score, 0)} <span class="${delta >= 0 ? 'diff-up' : 'diff-down'}">(${delta >= 0 ? '+' : ''}${fmtNum(delta, 0)})</span></td></tr>
       <tr><td>Decision</td><td>${original.approved ? 'Approve' : 'Reject'}</td><td>${revised.approved ? 'Approve' : 'Reject'}</td></tr>
       <tr><td>Offer</td><td>${offerText(original)}</td><td>${offerText(revised)}</td></tr>
     </tbody></table></div>`;

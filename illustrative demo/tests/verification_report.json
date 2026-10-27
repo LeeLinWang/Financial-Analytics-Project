@@ -1,39 +1,42 @@
 {
  "version": {
-  "model_version": "HI-scorecard final (tuned, 12 characteristics)",
+  "model_version": "HI-scorecard final (scorecardpy, tuned, 12 characteristics)",
   "notebook": "Home_Improvement_Credit_Scorecard.ipynb",
-  "notebook_sha256_12": "5f15da331dac",
-  "git_commit": "265b374",
+  "notebook_sha256_12": "57bdc7bf2daa",
+  "git_commit": "c7b54a7",
   "fitted_on": "dev_train",
   "policy_selected_on": "validation",
   "evaluated_once_on": "test"
  },
  "checks": [
   {
-   "check": "contract score vs notebook final_scores (dev_train)",
+   "check": "contract score and p_bad vs notebook final_scores / sc.scorecard_ply (dev_train)",
    "rows": 99786,
-   "max_abs_score_difference": 1.1368683772161603e-13,
+   "max_abs_score_difference": 0.0,
+   "max_abs_p_bad_difference": 1.6653345369377348e-16,
    "identical_decisions": true,
    "passed": true
   },
   {
-   "check": "contract score vs notebook final_scores (validation)",
+   "check": "contract score and p_bad vs notebook final_scores / sc.scorecard_ply (validation)",
    "rows": 33262,
-   "max_abs_score_difference": 1.1368683772161603e-13,
+   "max_abs_score_difference": 0.0,
+   "max_abs_p_bad_difference": 1.942890293094024e-16,
    "identical_decisions": true,
    "passed": true
   },
   {
-   "check": "contract score vs notebook final_scores (test)",
+   "check": "contract score and p_bad vs notebook final_scores / sc.scorecard_ply (test)",
    "rows": 66525,
-   "max_abs_score_difference": 1.1368683772161603e-13,
+   "max_abs_score_difference": 0.0,
+   "max_abs_p_bad_difference": 1.6653345369377348e-16,
    "identical_decisions": true,
    "passed": true
   },
   {
    "check": "test policy: Approval % (Table 5.9c)",
-   "dashboard": 80.81172491544532,
-   "notebook": 80.81172491544532,
+   "dashboard": 81.17399473881999,
+   "notebook": 81.17399473881999,
    "passed": true
   },
   {
@@ -44,8 +47,8 @@
   },
   {
    "check": "test policy: Funded loans (Table 5.9c)",
-   "dashboard": 8081.172491544532,
-   "notebook": 8081.172491544532,
+   "dashboard": 8117.399473881999,
+   "notebook": 8117.399473881999,
    "passed": true
   },
   {
@@ -56,8 +59,8 @@
   },
   {
    "check": "test policy: Accepted bad rate % (observed) (Table 5.9c)",
-   "dashboard": 5.924479166666666,
-   "notebook": 5.924479166666666,
+   "dashboard": 5.959148904649914,
+   "notebook": 5.959148904649914,
    "passed": true
   },
   {
@@ -68,476 +71,476 @@
   },
   {
    "check": "test policy: Interest revenue (Table 5.9c)",
-   "dashboard": 528381063.7281821,
-   "notebook": 528381063.7281821,
+   "dashboard": 530654681.9698571,
+   "notebook": 530654681.9698571,
    "passed": true
   },
   {
    "check": "test approve-all: Interest revenue (Table 5.9c)",
-   "dashboard": 672622593.4212344,
-   "notebook": 672622593.4212344,
+   "dashboard": 672012721.7745351,
+   "notebook": 672012721.7745351,
    "passed": true
   },
   {
    "check": "test policy: Credit losses (Table 5.9c)",
-   "dashboard": 47686893.112800606,
-   "notebook": 47686893.112800606,
+   "dashboard": 48181550.85003234,
+   "notebook": 48181550.85003234,
    "passed": true
   },
   {
    "check": "test approve-all: Credit losses (Table 5.9c)",
-   "dashboard": 79181347.39948814,
-   "notebook": 79181347.39948814,
+   "dashboard": 79175894.00043589,
+   "notebook": 79175894.00043589,
    "passed": true
   },
   {
    "check": "test policy: Net contribution (after funding and operating cost) (Table 5.9c)",
-   "dashboard": 127274041.80799764,
-   "notebook": 127274041.80799764,
+   "dashboard": 127486979.45119941,
+   "notebook": 127486979.45119941,
    "passed": true
   },
   {
    "check": "test approve-all: Net contribution (after funding and operating cost) (Table 5.9c)",
-   "dashboard": 156790836.72836208,
-   "notebook": 156790836.72836208,
+   "dashboard": 156201036.41307315,
+   "notebook": 156201036.41307315,
    "passed": true
   },
   {
    "check": "test approvals x 100 / applicants = Table 5.9c approval %",
-   "dashboard": 80.81172491544532,
-   "notebook": 80.81172491544532,
+   "dashboard": 81.17399473881999,
+   "notebook": 81.17399473881999,
    "passed": true
   },
   {
    "check": "validation cutoff 520: approved (Table 5.7a)",
-   "dashboard": 32979.0,
-   "notebook": 32979.0,
+   "dashboard": 33011.0,
+   "notebook": 33011.0,
    "passed": true
   },
   {
    "check": "validation cutoff 520: accepted bad rate (Table 5.7a)",
-   "dashboard": 7.756451074926468,
-   "notebook": 7.756451074926468,
+   "dashboard": 7.7640786404531825,
+   "notebook": 7.7640786404531825,
    "passed": true
   },
   {
    "check": "validation cutoff 520: net contribution (Table 5.8d)",
-   "dashboard": 155853905.0514566,
-   "notebook": 155853905.0514566,
+   "dashboard": 155476450.28381607,
+   "notebook": 155476450.28381607,
    "passed": true
   },
   {
    "check": "validation cutoff 525: approved (Table 5.7a)",
-   "dashboard": 32537.0,
-   "notebook": 32537.0,
+   "dashboard": 32588.0,
+   "notebook": 32588.0,
    "passed": true
   },
   {
    "check": "validation cutoff 525: accepted bad rate (Table 5.7a)",
-   "dashboard": 7.557549866306052,
-   "notebook": 7.557549866306052,
+   "dashboard": 7.582545722351785,
+   "notebook": 7.582545722351785,
    "passed": true
   },
   {
    "check": "validation cutoff 525: net contribution (Table 5.8d)",
-   "dashboard": 153905122.93645376,
-   "notebook": 153905122.93645376,
+   "dashboard": 153523904.5269377,
+   "notebook": 153523904.5269377,
    "passed": true
   },
   {
    "check": "validation cutoff 530: approved (Table 5.7a)",
-   "dashboard": 31752.0,
-   "notebook": 31752.0,
+   "dashboard": 31839.0,
+   "notebook": 31839.0,
    "passed": true
   },
   {
    "check": "validation cutoff 530: accepted bad rate (Table 5.7a)",
-   "dashboard": 7.350718065003779,
-   "notebook": 7.350718065003779,
+   "dashboard": 7.368321869405446,
+   "notebook": 7.368321869405446,
    "passed": true
   },
   {
    "check": "validation cutoff 530: net contribution (Table 5.8d)",
-   "dashboard": 148822888.46527258,
-   "notebook": 148822888.46527258,
+   "dashboard": 148857586.55421087,
+   "notebook": 148857586.55421087,
    "passed": true
   },
   {
    "check": "validation cutoff 535: approved (Table 5.7a)",
-   "dashboard": 30565.0,
-   "notebook": 30565.0,
+   "dashboard": 30655.0,
+   "notebook": 30655.0,
    "passed": true
   },
   {
    "check": "validation cutoff 535: accepted bad rate (Table 5.7a)",
-   "dashboard": 6.9131359398004255,
-   "notebook": 6.9131359398004255,
+   "dashboard": 6.941771326047953,
+   "notebook": 6.941771326047953,
    "passed": true
   },
   {
    "check": "validation cutoff 535: net contribution (Table 5.8d)",
-   "dashboard": 144272336.91282895,
-   "notebook": 144272336.91282895,
+   "dashboard": 144241666.74158838,
+   "notebook": 144241666.74158838,
    "passed": true
   },
   {
    "check": "validation cutoff 540: approved (Table 5.7a)",
-   "dashboard": 28934.0,
-   "notebook": 28934.0,
+   "dashboard": 29056.0,
+   "notebook": 29056.0,
    "passed": true
   },
   {
    "check": "validation cutoff 540: accepted bad rate (Table 5.7a)",
-   "dashboard": 6.473353148544965,
-   "notebook": 6.473353148544965,
+   "dashboard": 6.494355726872247,
+   "notebook": 6.494355726872247,
    "passed": true
   },
   {
    "check": "validation cutoff 540: net contribution (Table 5.8d)",
-   "dashboard": 136015126.27848682,
-   "notebook": 136015126.27848682,
+   "dashboard": 136326202.5063177,
+   "notebook": 136326202.5063177,
    "passed": true
   },
   {
    "check": "validation cutoff 545: approved (Table 5.7a)",
-   "dashboard": 26867.0,
-   "notebook": 26867.0,
+   "dashboard": 26987.0,
+   "notebook": 26987.0,
    "passed": true
   },
   {
    "check": "validation cutoff 545: accepted bad rate (Table 5.7a)",
-   "dashboard": 5.88082033721666,
-   "notebook": 5.88082033721666,
+   "dashboard": 5.913958572646089,
+   "notebook": 5.913958572646089,
    "passed": true
   },
   {
    "check": "validation cutoff 545: net contribution (Table 5.8d)",
-   "dashboard": 127664878.8920947,
-   "notebook": 127664878.8920947,
+   "dashboard": 127896601.47692469,
+   "notebook": 127896601.47692469,
    "passed": true
   },
   {
    "check": "validation cutoff 550: approved (Table 5.7a)",
-   "dashboard": 24392.0,
-   "notebook": 24392.0,
+   "dashboard": 24559.0,
+   "notebook": 24559.0,
    "passed": true
   },
   {
    "check": "validation cutoff 550: accepted bad rate (Table 5.7a)",
-   "dashboard": 5.481305346015087,
-   "notebook": 5.481305346015087,
+   "dashboard": 5.488822834805977,
+   "notebook": 5.488822834805977,
    "passed": true
   },
   {
    "check": "validation cutoff 550: net contribution (Table 5.8d)",
-   "dashboard": 114300600.14305454,
-   "notebook": 114300600.14305454,
+   "dashboard": 115086204.01996854,
+   "notebook": 115086204.01996854,
    "passed": true
   },
   {
    "check": "validation cutoff 555: approved (Table 5.7a)",
-   "dashboard": 21483.0,
-   "notebook": 21483.0,
+   "dashboard": 21635.0,
+   "notebook": 21635.0,
    "passed": true
   },
   {
    "check": "validation cutoff 555: accepted bad rate (Table 5.7a)",
-   "dashboard": 5.0132663035888845,
-   "notebook": 5.0132663035888845,
+   "dashboard": 5.075109775826207,
+   "notebook": 5.075109775826207,
    "passed": true
   },
   {
    "check": "validation cutoff 555: net contribution (Table 5.8d)",
-   "dashboard": 101289106.50725433,
-   "notebook": 101289106.50725433,
+   "dashboard": 101656720.23038833,
+   "notebook": 101656720.23038833,
    "passed": true
   },
   {
    "check": "validation cutoff 560: approved (Table 5.7a)",
-   "dashboard": 18480.0,
-   "notebook": 18480.0,
+   "dashboard": 18608.0,
+   "notebook": 18608.0,
    "passed": true
   },
   {
    "check": "validation cutoff 560: accepted bad rate (Table 5.7a)",
-   "dashboard": 4.5021645021645025,
-   "notebook": 4.5021645021645025,
+   "dashboard": 4.508813413585554,
+   "notebook": 4.508813413585554,
    "passed": true
   },
   {
    "check": "validation cutoff 560: net contribution (Table 5.8d)",
-   "dashboard": 87133087.32831466,
-   "notebook": 87133087.32831466,
+   "dashboard": 87760162.59455709,
+   "notebook": 87760162.59455709,
    "passed": true
   },
   {
    "check": "validation cutoff 565: approved (Table 5.7a)",
-   "dashboard": 15356.0,
-   "notebook": 15356.0,
+   "dashboard": 15440.0,
+   "notebook": 15440.0,
    "passed": true
   },
   {
    "check": "validation cutoff 565: accepted bad rate (Table 5.7a)",
-   "dashboard": 4.044021880698098,
-   "notebook": 4.044021880698098,
+   "dashboard": 4.08678756476684,
+   "notebook": 4.08678756476684,
    "passed": true
   },
   {
    "check": "validation cutoff 565: net contribution (Table 5.8d)",
-   "dashboard": 72929061.58181152,
-   "notebook": 72929061.58181152,
+   "dashboard": 73172108.84155641,
+   "notebook": 73172108.84155641,
    "passed": true
   },
   {
    "check": "validation cutoff 570: approved (Table 5.7a)",
-   "dashboard": 12380.0,
-   "notebook": 12380.0,
+   "dashboard": 12421.0,
+   "notebook": 12421.0,
    "passed": true
   },
   {
    "check": "validation cutoff 570: accepted bad rate (Table 5.7a)",
-   "dashboard": 3.8126009693053313,
-   "notebook": 3.8126009693053313,
+   "dashboard": 3.767812575477015,
+   "notebook": 3.767812575477015,
    "passed": true
   },
   {
    "check": "validation cutoff 570: net contribution (Table 5.8d)",
-   "dashboard": 57795896.67001682,
-   "notebook": 57795896.67001682,
+   "dashboard": 58185254.15746748,
+   "notebook": 58185254.15746748,
    "passed": true
   },
   {
    "check": "validation cutoff 575: approved (Table 5.7a)",
-   "dashboard": 9644.0,
-   "notebook": 9644.0,
+   "dashboard": 9672.0,
+   "notebook": 9672.0,
    "passed": true
   },
   {
    "check": "validation cutoff 575: accepted bad rate (Table 5.7a)",
-   "dashboard": 3.349232683533803,
-   "notebook": 3.349232683533803,
+   "dashboard": 3.329197684036394,
+   "notebook": 3.329197684036394,
    "passed": true
   },
   {
    "check": "validation cutoff 575: net contribution (Table 5.8d)",
-   "dashboard": 45900768.47792778,
-   "notebook": 45900768.47792778,
+   "dashboard": 46119876.45537189,
+   "notebook": 46119876.45537189,
    "passed": true
   },
   {
    "check": "validation cutoff 580: approved (Table 5.7a)",
-   "dashboard": 7211.0,
-   "notebook": 7211.0,
+   "dashboard": 7222.0,
+   "notebook": 7222.0,
    "passed": true
   },
   {
    "check": "validation cutoff 580: accepted bad rate (Table 5.7a)",
-   "dashboard": 3.0370267646650952,
-   "notebook": 3.0370267646650952,
+   "dashboard": 3.0877873165328165,
+   "notebook": 3.0877873165328165,
    "passed": true
   },
   {
    "check": "validation cutoff 580: net contribution (Table 5.8d)",
-   "dashboard": 34448859.25826265,
-   "notebook": 34448859.25826265,
+   "dashboard": 34412302.0300836,
+   "notebook": 34412302.0300836,
    "passed": true
   },
   {
    "check": "validation cutoff 585: approved (Table 5.7a)",
-   "dashboard": 5232.0,
-   "notebook": 5232.0,
+   "dashboard": 5226.0,
+   "notebook": 5226.0,
    "passed": true
   },
   {
    "check": "validation cutoff 585: accepted bad rate (Table 5.7a)",
-   "dashboard": 2.675840978593272,
-   "notebook": 2.675840978593272,
+   "dashboard": 2.640642939150402,
+   "notebook": 2.640642939150402,
    "passed": true
   },
   {
    "check": "validation cutoff 585: net contribution (Table 5.8d)",
-   "dashboard": 24962323.437267717,
-   "notebook": 24962323.437267717,
+   "dashboard": 25007491.434385996,
+   "notebook": 25007491.434385996,
    "passed": true
   },
   {
    "check": "validation cutoff 590: approved (Table 5.7a)",
-   "dashboard": 3689.0,
-   "notebook": 3689.0,
+   "dashboard": 3656.0,
+   "notebook": 3656.0,
    "passed": true
   },
   {
    "check": "validation cutoff 590: accepted bad rate (Table 5.7a)",
-   "dashboard": 2.7107617240444566,
-   "notebook": 2.7107617240444566,
+   "dashboard": 2.7078774617067833,
+   "notebook": 2.7078774617067833,
    "passed": true
   },
   {
    "check": "validation cutoff 590: net contribution (Table 5.8d)",
-   "dashboard": 16903431.097886227,
-   "notebook": 16903431.097886227,
+   "dashboard": 16755441.366547504,
+   "notebook": 16755441.366547504,
    "passed": true
   },
   {
    "check": "validation cutoff 595: approved (Table 5.7a)",
-   "dashboard": 2475.0,
-   "notebook": 2475.0,
+   "dashboard": 2464.0,
+   "notebook": 2464.0,
    "passed": true
   },
   {
    "check": "validation cutoff 595: accepted bad rate (Table 5.7a)",
-   "dashboard": 2.383838383838384,
-   "notebook": 2.383838383838384,
+   "dashboard": 2.3944805194805197,
+   "notebook": 2.3944805194805197,
    "passed": true
   },
   {
    "check": "validation cutoff 595: net contribution (Table 5.8d)",
-   "dashboard": 11587830.665692687,
-   "notebook": 11587830.665692687,
+   "dashboard": 11528321.571594601,
+   "notebook": 11528321.571594601,
    "passed": true
   },
   {
    "check": "validation cutoff 600: approved (Table 5.7a)",
-   "dashboard": 1596.0,
-   "notebook": 1596.0,
+   "dashboard": 1575.0,
+   "notebook": 1575.0,
    "passed": true
   },
   {
    "check": "validation cutoff 600: accepted bad rate (Table 5.7a)",
-   "dashboard": 1.7543859649122806,
-   "notebook": 1.7543859649122806,
+   "dashboard": 1.7777777777777777,
+   "notebook": 1.7777777777777777,
    "passed": true
   },
   {
    "check": "validation cutoff 600: net contribution (Table 5.8d)",
-   "dashboard": 7779177.13511276,
-   "notebook": 7779177.13511276,
+   "dashboard": 7665568.864561866,
+   "notebook": 7665568.864561866,
    "passed": true
   },
   {
    "check": "scenario 'Base case': policy net (Table 5.8e)",
-   "dashboard": 127664878.8920947,
-   "notebook": 127664878.8920947,
+   "dashboard": 127896601.47692469,
+   "notebook": 127896601.47692469,
    "passed": true
   },
   {
    "check": "scenario 'Base case': approve-all net (Table 5.8e)",
-   "dashboard": 156667444.45987076,
-   "notebook": 156667444.45987076,
+   "dashboard": 156079768.37174207,
+   "notebook": 156079768.37174207,
    "passed": true
   },
   {
    "check": "scenario 'LGD 50%': policy net (Table 5.8e)",
-   "dashboard": 143434858.15832505,
-   "notebook": 143434858.15832505,
+   "dashboard": 143826578.16638455,
+   "notebook": 143826578.16638455,
    "passed": true
   },
   {
    "check": "scenario 'LGD 50%': approve-all net (Table 5.8e)",
-   "dashboard": 183057015.5586983,
-   "notebook": 183057015.5586983,
+   "dashboard": 182467808.84179956,
+   "notebook": 182467808.84179956,
    "passed": true
   },
   {
    "check": "scenario 'LGD 90%': policy net (Table 5.8e)",
-   "dashboard": 118202891.33235651,
-   "notebook": 118202891.33235651,
+   "dashboard": 118338615.46324876,
+   "notebook": 118338615.46324876,
    "passed": true
   },
   {
    "check": "scenario 'LGD 90%': approve-all net (Table 5.8e)",
-   "dashboard": 140833701.8005742,
-   "notebook": 140833701.8005742,
+   "dashboard": 140246944.08970755,
+   "notebook": 140246944.08970755,
    "passed": true
   },
   {
    "check": "scenario 'Loss events = 30% of payment difficulties': policy net (Table 5.8e)",
-   "dashboard": 147170544.89320529,
-   "notebook": 147170544.89320529,
+   "dashboard": 147600726.54623568,
+   "notebook": 147600726.54623568,
    "passed": true
   },
   {
    "check": "scenario 'Loss events = 30% of payment difficulties': approve-all net (Table 5.8e)",
-   "dashboard": 189477409.57386404,
-   "notebook": 189477409.57386404,
+   "dashboard": 188884931.45846182,
+   "notebook": 188884931.45846182,
    "passed": true
   },
   {
    "check": "scenario 'Loss events = 80% of payment difficulties': policy net (Table 5.8e)",
-   "dashboard": 98406379.89042884,
-   "notebook": 98406379.89042884,
+   "dashboard": 98340413.87295821,
+   "notebook": 98340413.87295821,
    "passed": true
   },
   {
    "check": "scenario 'Loss events = 80% of payment difficulties': approve-all net (Table 5.8e)",
-   "dashboard": 107452496.78888078,
-   "notebook": 107452496.78888078,
+   "dashboard": 106872023.74166237,
+   "notebook": 106872023.74166237,
    "passed": true
   },
   {
    "check": "scenario 'Loss events = 100% of payment difficulties': policy net (Table 5.8e)",
-   "dashboard": 78900713.88931826,
-   "notebook": 78900713.88931826,
+   "dashboard": 78636288.80364724,
+   "notebook": 78636288.80364724,
    "passed": true
   },
   {
    "check": "scenario 'Loss events = 100% of payment difficulties': approve-all net (Table 5.8e)",
-   "dashboard": 74642531.6748875,
-   "notebook": 74642531.6748875,
+   "dashboard": 74066860.65494259,
+   "notebook": 74066860.65494259,
    "passed": true
   },
   {
    "check": "scenario 'Funding cost 3%': policy net (Table 5.8e)",
-   "dashboard": 191897161.98263747,
-   "notebook": 191897161.98263747,
+   "dashboard": 192412607.16468513,
+   "notebook": 192412607.16468513,
    "passed": true
   },
   {
    "check": "scenario 'Funding cost 3%': approve-all net (Table 5.8e)",
-   "dashboard": 236057904.73513323,
-   "notebook": 236057904.73513323,
+   "dashboard": 235467579.52058196,
+   "notebook": 235467579.52058196,
    "passed": true
   },
   {
    "check": "scenario 'Funding cost 6%': policy net (Table 5.8e)",
-   "dashboard": -799687.2889907511,
-   "notebook": -799687.2889907511,
+   "dashboard": -1135409.8985960311,
+   "notebook": -1135409.8985960311,
    "passed": true
   },
   {
    "check": "scenario 'Funding cost 6%': approve-all net (Table 5.8e)",
-   "dashboard": -2113476.09065421,
-   "notebook": -2113476.09065421,
+   "dashboard": -2695853.9259375357,
+   "notebook": -2695853.9259375357,
    "passed": true
   },
   {
    "check": "scenario 'Take-up 60%': policy net (Table 5.8e)",
-   "dashboard": 76598927.33525684,
-   "notebook": 76598927.33525684,
+   "dashboard": 76737960.8861548,
+   "notebook": 76737960.8861548,
    "passed": true
   },
   {
    "check": "scenario 'Take-up 60%': approve-all net (Table 5.8e)",
-   "dashboard": 94000466.67592245,
-   "notebook": 94000466.67592245,
+   "dashboard": 93647861.02304523,
+   "notebook": 93647861.02304523,
    "passed": true
   },
   {
    "check": "scenario 'Take-up 80%': policy net (Table 5.8e)",
-   "dashboard": 102131903.11367577,
-   "notebook": 102131903.11367577,
+   "dashboard": 102317281.18153977,
+   "notebook": 102317281.18153977,
    "passed": true
   },
   {
    "check": "scenario 'Take-up 80%': approve-all net (Table 5.8e)",
-   "dashboard": 125333955.5678966,
-   "notebook": 125333955.5678966,
+   "dashboard": 124863814.69739369,
+   "notebook": 124863814.69739369,
    "passed": true
   },
   {
    "check": "score PSI (Table 5.10a)",
-   "dashboard": 0.00034173467684735107,
-   "notebook": 0.00034173467684735107,
+   "dashboard": 0.0003029348108744227,
+   "notebook": 0.0003029348108744227,
    "passed": true
   },
   {
@@ -614,74 +617,74 @@
   },
   {
    "check": "EXT_SOURCE_1: coefficient matches final model",
-   "dashboard": -0.6637354295051086,
-   "notebook": -0.6637354295051086,
+   "dashboard": 0.6626307374161875,
+   "notebook": 0.6626307374161875,
    "passed": true
   },
   {
    "check": "employment_years: coefficient matches final model",
-   "dashboard": -0.5655415277116931,
-   "notebook": -0.5655415277116931,
+   "dashboard": 0.5650000272153505,
+   "notebook": 0.5650000272153505,
    "passed": true
   },
   {
    "check": "AMT_GOODS_PRICE: coefficient matches final model",
-   "dashboard": -0.44631810954878115,
-   "notebook": -0.44631810954878115,
+   "dashboard": 0.44488491405230607,
+   "notebook": 0.44488491405230607,
    "passed": true
   },
   {
    "check": "BUR_debt_to_credit: coefficient matches final model",
-   "dashboard": -0.6457273050647226,
-   "notebook": -0.6457273050647226,
+   "dashboard": 0.6451494090375621,
+   "notebook": 0.6451494090375621,
    "passed": true
   },
   {
    "check": "BUR_days_since_recent_credit: coefficient matches final model",
-   "dashboard": -0.5925858035557203,
-   "notebook": -0.5925858035557203,
+   "dashboard": 0.5917644258642855,
+   "notebook": 0.5917644258642855,
    "passed": true
   },
   {
    "check": "OCCUPATION_TYPE: coefficient matches final model",
-   "dashboard": -0.34970049108633805,
-   "notebook": -0.34970049108633805,
+   "dashboard": 0.34758882927617407,
+   "notebook": 0.34758882927617407,
    "passed": true
   },
   {
    "check": "age_years: coefficient matches final model",
-   "dashboard": -0.20538310343693142,
-   "notebook": -0.20538310343693142,
+   "dashboard": 0.2089463355313676,
+   "notebook": 0.2089463355313676,
    "passed": true
   },
   {
    "check": "ORGANIZATION_TYPE: coefficient matches final model",
-   "dashboard": -0.36637948488923855,
-   "notebook": -0.36637948488923855,
+   "dashboard": 0.37369419436115736,
+   "notebook": 0.37369419436115736,
    "passed": true
   },
   {
    "check": "NAME_EDUCATION_TYPE: coefficient matches final model",
-   "dashboard": -0.6755473835637753,
-   "notebook": -0.6755473835637753,
+   "dashboard": 0.6739564805600575,
+   "notebook": 0.6739564805600575,
    "passed": true
   },
   {
    "check": "DAYS_LAST_PHONE_CHANGE: coefficient matches final model",
-   "dashboard": -0.6677995137992437,
-   "notebook": -0.6677995137992437,
+   "dashboard": 0.6656191907935212,
+   "notebook": 0.6656191907935212,
    "passed": true
   },
   {
    "check": "REGION_RATING_CLIENT_W_CITY: coefficient matches final model",
-   "dashboard": -0.8101203801705767,
-   "notebook": -0.8101203801705767,
+   "dashboard": 0.8099578026144504,
+   "notebook": 0.8099578026144504,
    "passed": true
   },
   {
    "check": "FLOORSMAX_MEDI: coefficient matches final model",
-   "dashboard": -0.5066094370243495,
-   "notebook": -0.5066094370243495,
+   "dashboard": 0.5062070112115885,
+   "notebook": 0.5062070112115885,
    "passed": true
   },
   {

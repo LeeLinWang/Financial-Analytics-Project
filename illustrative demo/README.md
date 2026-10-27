@@ -50,12 +50,16 @@ For the interface smoke test, start the server and open <http://127.0.0.1:8765/t
 | `src/engine.js` | Scoring engine; reads every rule from the contract, holds no model numbers |
 | `src/app.js`, `src/charts.js` | Interface and SVG charts |
 | `export_dashboard_data.py` | Offline export from the executed notebook |
-| `data/model_contract.json` | Final 12-characteristic scorecard: bins, WOE, coefficients, points, scaling, cutoff, pricing |
+| `data/model_contract.json` | Final 12-characteristic scorecard from `sc.scorecard` (scorecardpy): bins, WOE (scorecardpy sign), coefficients, whole-number points, scaling, cutoff, pricing |
 | `data/dashboard_aggregates.json` | Aggregate portfolio, policy, pricing and PSI results, with provenance |
 | `data/synthetic_profiles.json` | Synthetic applicant inputs (outcomes are computed, not stored) |
 | `tests/` | Parity fixtures and test, asset check, verification report, UI smoke test |
 
 No borrower-level data is written to this folder. The private row-level checks run inside the export script, and only their aggregate results are saved.
+
+## Scoring rule
+
+The scorecard is built in the notebook with scorecardpy, following the Week 11 lab. An applicant's score is the sum of the whole-number attribute points, the same total `sc.scorecard_ply` gives, and the cutoff is applied to that total. The probability shown is the model's p = 1 / (1 + e^-z). Within each characteristic every attribute has its own points: attributes that would have received equal points were merged in the notebook, and in the contract they share one entry (`merged_group`).
 
 ## Known limitations carried from the notebook
 

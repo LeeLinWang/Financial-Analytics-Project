@@ -4,5 +4,6 @@ numpy>=2.2
 matplotlib>=3.10
 seaborn>=0.13
 scikit-learn>=1.5
+scorecardpy==0.1.9.7
 openpyxl>=3.1
 ipykernel>=6.29

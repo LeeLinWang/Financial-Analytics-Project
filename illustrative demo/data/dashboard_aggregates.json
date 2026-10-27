@@ -1,48 +1,48 @@
 {
  "version": {
-  "model_version": "HI-scorecard final (tuned, 12 characteristics)",
+  "model_version": "HI-scorecard final (scorecardpy, tuned, 12 characteristics)",
   "notebook": "Home_Improvement_Credit_Scorecard.ipynb",
-  "notebook_sha256_12": "5f15da331dac",
-  "git_commit": "265b374",
+  "notebook_sha256_12": "57bdc7bf2daa",
+  "git_commit": "c7b54a7",
   "fitted_on": "dev_train",
   "policy_selected_on": "validation",
   "evaluated_once_on": "test"
  },
  "portfolio_overview": {
   "provenance": {
-   "model_version": "HI-scorecard final (tuned, 12 characteristics)",
+   "model_version": "HI-scorecard final (scorecardpy, tuned, 12 characteristics)",
    "partition": "test (held out, evaluated once)",
    "status": "observed outcomes; hypothetical approvals and projected economics"
   },
   "test_applicants": 66525,
-  "approvals": 53760,
-  "approval_rate": 0.8081172491544533,
-  "approved_principal_actual_amt_credit": 34432168527.0,
+  "approvals": 54001,
+  "approval_rate": 0.8117399473881999,
+  "approved_principal_actual_amt_credit": 34595011683.0,
   "approved_principal_note": "Sum of AMT_CREDIT (requested credit amount) of test applications the frozen policy would approve. Hypothetical: no loans were issued.",
   "take_up": 1.0,
-  "funded_principal_actual_amt_credit": 34432168527.0,
-  "mean_predicted_p_bad_approved": 0.059433296074479953,
-  "observed_bad_rate_approved": 0.059244791666666664,
+  "funded_principal_actual_amt_credit": 34595011683.0,
+  "mean_predicted_p_bad_approved": 0.059708774279764065,
+  "observed_bad_rate_approved": 0.05959148904649914,
   "observed_bad_rate_all": 0.07921833897031191,
   "economics_policy": {
-   "Approval %": 80.81172491544532,
-   "Funded loans": 8081.172491544532,
-   "Accepted bad rate % (observed)": 5.924479166666666,
-   "Mean predicted p_bad % (approved)": 5.943329607447995,
-   "Interest revenue": 528381063.7281821,
-   "Credit losses": 47686893.112800606,
-   "Net contribution (after funding and operating cost)": 127274041.80799764,
-   "Funding and operating costs": 353420128.80738384
+   "Approval %": 81.17399473881999,
+   "Funded loans": 8117.399473881999,
+   "Accepted bad rate % (observed)": 5.959148904649914,
+   "Mean predicted p_bad % (approved)": 5.970877427976406,
+   "Interest revenue": 530654681.9698571,
+   "Credit losses": 48181550.85003234,
+   "Net contribution (after funding and operating cost)": 127486979.45119941,
+   "Funding and operating costs": 354986151.66862535
   },
   "economics_approve_all": {
    "Approval %": 100.0,
    "Funded loans": 10000.0,
    "Accepted bad rate % (observed)": 7.921833897031191,
-   "Mean predicted p_bad % (approved)": 7.953775232680002,
-   "Interest revenue": 672622593.4212344,
-   "Credit losses": 79181347.39948814,
-   "Net contribution (after funding and operating cost)": 156790836.72836208,
-   "Funding and operating costs": 436650409.2933842
+   "Mean predicted p_bad % (approved)": 7.953896631022944,
+   "Interest revenue": 672012721.7745351,
+   "Credit losses": 79175894.00043589,
+   "Net contribution (after funding and operating cost)": 156201036.41307315,
+   "Funding and operating costs": 436635791.3610259
   },
   "economics_basis": {
    "units": "dataset currency units",
@@ -52,82 +52,82 @@
   "score_bands": [
    {
     "band": "< 530",
-    "applicants": 3224,
-    "observed_bad_rate": 0.21805210918114143,
-    "mean_predicted_p_bad": 0.21873420224952353
+    "applicants": 3045,
+    "observed_bad_rate": 0.2220032840722496,
+    "mean_predicted_p_bad": 0.22062475790800365
    },
    {
     "band": "530-539",
-    "applicants": 5550,
-    "observed_bad_rate": 0.16252252252252253,
-    "mean_predicted_p_bad": 0.1587922313459707
+    "applicants": 5499,
+    "observed_bad_rate": 0.1629387161302055,
+    "mean_predicted_p_bad": 0.1604945170636129
    },
    {
     "band": "540-549",
-    "applicants": 8797,
-    "observed_bad_rate": 0.11469819256564738,
-    "mean_predicted_p_bad": 0.11775505082081808
+    "applicants": 8726,
+    "observed_bad_rate": 0.11666284666513867,
+    "mean_predicted_p_bad": 0.11881746649587877
    },
    {
     "band": "550-559",
-    "applicants": 11888,
-    "observed_bad_rate": 0.08319313593539704,
-    "mean_predicted_p_bad": 0.08680663841942901
+    "applicants": 11961,
+    "observed_bad_rate": 0.08393946994398462,
+    "mean_predicted_p_bad": 0.08742688598534021
    },
    {
     "band": "560-569",
-    "applicants": 12218,
-    "observed_bad_rate": 0.06171222786053364,
-    "mean_predicted_p_bad": 0.06351086897767765
+    "applicants": 12310,
+    "observed_bad_rate": 0.06141348497156783,
+    "mean_predicted_p_bad": 0.06382637834569527
    },
    {
     "band": "570-579",
-    "applicants": 10513,
-    "observed_bad_rate": 0.04584799771711215,
-    "mean_predicted_p_bad": 0.045918763439275194
+    "applicants": 10609,
+    "observed_bad_rate": 0.04562164200207371,
+    "mean_predicted_p_bad": 0.04606644795734899
    },
    {
     "band": "580-589",
-    "applicants": 7151,
-    "observed_bad_rate": 0.032443014962942246,
-    "mean_predicted_p_bad": 0.03316259329679941
+    "applicants": 7189,
+    "observed_bad_rate": 0.03324523577688135,
+    "mean_predicted_p_bad": 0.033221283318580895
    },
    {
     "band": "590+",
-    "applicants": 7184,
-    "observed_bad_rate": 0.02770044543429844,
-    "mean_predicted_p_bad": 0.019632385863736623
+    "applicants": 7186,
+    "observed_bad_rate": 0.027414416921792376,
+    "mean_predicted_p_bad": 0.019649920834865147
    }
   ],
   "performance": [
    {
     "partition": "Training (dev_train)",
-    "F1 (good)": 0.8796973752049264,
-    "Recall (good)": 0.8263732436521153,
-    "Specificity (bad rejection)": 0.39101834282099934,
-    "Accuracy": 0.7918846331148658,
-    "Approval rate": 0.8091515843905959,
-    "AUC": 0.6861723618925426,
-    "Gini": 0.3723447237850852,
-    "KS": 0.2756867780073669
+    "F1 (good)": 0.88184644545381,
+    "Recall (good)": 0.8304219588380622,
+    "Specificity (bad rejection)": 0.3845667299177736,
+    "Accuracy": 0.7951015172469084,
+    "Approval rate": 0.8133906560038482,
+    "AUC": 0.6862213431047381,
+    "Gini": 0.3724426862094763,
+    "KS": 0.275559016017067
    },
    {
     "partition": "Test (held out)",
-    "F1 (good)": 0.8794505064556797,
-    "Recall (good)": 0.8256468859684923,
-    "Specificity (bad rejection)": 0.3956356736242884,
-    "Accuracy": 0.7915821119879745,
-    "Approval rate": 0.8081172491544533,
-    "AUC": 0.6813095379891537,
-    "Gini": 0.36261907597830745,
-    "KS": 0.27141862097924235
+    "F1 (good)": 0.8812209342680641,
+    "Recall (good)": 0.8290425271406415,
+    "Specificity (bad rejection)": 0.38937381404174576,
+    "Accuracy": 0.7942127019917324,
+    "Approval rate": 0.8117399473881999,
+    "AUC": 0.6813751315192952,
+    "Gini": 0.36275026303859037,
+    "KS": 0.27109380529986554
    }
   ],
   "performance_note": "Good payer = positive class (lecture convention). Measures at the policy cutoff 545. Training = dev_train."
  },
  "policy_comparison": {
   "provenance": {
-   "model_version": "HI-scorecard final (tuned, 12 characteristics)",
+   "model_version": "HI-scorecard final (scorecardpy, tuned, 12 characteristics)",
    "partition": "validation (policy selection)",
    "status": "observed outcomes; projected economics under stated assumptions"
   },
@@ -137,342 +137,342 @@
   "cutoffs": [
    {
     "cutoff": 520,
-    "approved": 32979,
-    "approval_rate": 0.9914917924358126,
-    "approved_principal_actual_amt_credit": 20051331457.5,
-    "accepted_bad_rate_observed": 0.07756451074926468,
-    "mean_predicted_p_bad_approved": 0.07770065404494458,
+    "approved": 33011,
+    "approval_rate": 0.9924538512416572,
+    "approved_principal_actual_amt_credit": 20061307989.0,
+    "accepted_bad_rate_observed": 0.07764078640453183,
+    "mean_predicted_p_bad_approved": 0.07786633423644479,
     "boundary_good_bad_odds": 3.1250000000000036,
     "boundary_pd": 0.2424242424242422,
     "economics": {
-     "Approval %": 99.14917924358126,
-     "Funded loans": 9914.917924358126,
-     "Accepted bad rate % (observed)": 7.756451074926468,
-     "Mean predicted p_bad % (approved)": 7.770065404494458,
-     "Interest revenue": 665687149.4833091,
-     "Credit losses": 76832636.70604865,
-     "Net contribution (after funding and operating cost)": 155853905.0514566,
-     "Funding and operating costs": 433000607.725804
+     "Approval %": 99.24538512416572,
+     "Funded loans": 9924.538512416571,
+     "Accepted bad rate % (observed)": 7.7640786404531825,
+     "Mean predicted p_bad % (approved)": 7.786633423644479,
+     "Interest revenue": 665861284.9361155,
+     "Credit losses": 76979738.10483155,
+     "Net contribution (after funding and operating cost)": 155476450.28381607,
+     "Funding and operating costs": 433405096.5474678
     }
    },
    {
     "cutoff": 525,
-    "approved": 32537,
-    "approval_rate": 0.9782033551800854,
-    "approved_principal_actual_amt_credit": 19875106984.5,
-    "accepted_bad_rate_observed": 0.07557549866306051,
-    "mean_predicted_p_bad_approved": 0.07569686120708691,
+    "approved": 32588,
+    "approval_rate": 0.9797366364019001,
+    "approved_principal_actual_amt_credit": 19897439418.0,
+    "accepted_bad_rate_observed": 0.07582545722351786,
+    "mean_predicted_p_bad_approved": 0.07591712115628842,
     "boundary_good_bad_odds": 3.7162722343835077,
     "boundary_pd": 0.21203186548681405,
     "economics": {
-     "Approval %": 97.82033551800853,
-     "Funded loans": 9782.033551800854,
-     "Accepted bad rate % (observed)": 7.557549866306052,
-     "Mean predicted p_bad % (approved)": 7.569686120708691,
-     "Interest revenue": 655000587.6120613,
-     "Credit losses": 73829109.66120495,
-     "Net contribution (after funding and operating cost)": 153905122.93645376,
-     "Funding and operating costs": 427266355.01440257
+     "Approval %": 97.97366364019001,
+     "Funded loans": 9797.366364019,
+     "Accepted bad rate % (observed)": 7.582545722351785,
+     "Mean predicted p_bad % (approved)": 7.591712115628842,
+     "Interest revenue": 655624874.9199965,
+     "Credit losses": 74188581.6591182,
+     "Net contribution (after funding and operating cost)": 153523904.5269377,
+     "Funding and operating costs": 427912388.7339406
     }
    },
    {
     "cutoff": 530,
-    "approved": 31752,
-    "approval_rate": 0.9546028500992123,
-    "approved_principal_actual_amt_credit": 19545351781.5,
-    "accepted_bad_rate_observed": 0.07350718065003779,
-    "mean_predicted_p_bad_approved": 0.072706571894691,
+    "approved": 31839,
+    "approval_rate": 0.9572184474776021,
+    "approved_principal_actual_amt_credit": 19592019697.5,
+    "accepted_bad_rate_observed": 0.07368321869405446,
+    "mean_predicted_p_bad_approved": 0.0730236637785819,
     "boundary_good_bad_odds": 4.4194173824159275,
     "boundary_pd": 0.18452167999546273,
     "economics": {
-     "Approval %": 95.46028500992124,
-     "Funded loans": 9546.028500992123,
-     "Accepted bad rate % (observed)": 7.350718065003779,
-     "Mean predicted p_bad % (approved)": 7.2706571894691,
-     "Interest revenue": 635850207.0573838,
-     "Credit losses": 70036777.53387703,
-     "Net contribution (after funding and operating cost)": 148822888.46527258,
-     "Funding and operating costs": 416990541.0582342
+     "Approval %": 95.72184474776022,
+     "Funded loans": 9572.18447477602,
+     "Accepted bad rate % (observed)": 7.368321869405446,
+     "Mean predicted p_bad % (approved)": 7.302366377858189,
+     "Interest revenue": 637371998.3882995,
+     "Credit losses": 70396249.53179029,
+     "Net contribution (after funding and operating cost)": 148857586.55421087,
+     "Funding and operating costs": 418118162.3022983
     }
    },
    {
     "cutoff": 535,
-    "approved": 30565,
-    "approval_rate": 0.9189164812699177,
-    "approved_principal_actual_amt_credit": 19009059268.5,
-    "accepted_bad_rate_observed": 0.06913135939800426,
-    "mean_predicted_p_bad_approved": 0.06886918556401751,
+    "approved": 30655,
+    "approval_rate": 0.9216222716613554,
+    "approved_principal_actual_amt_credit": 19058161234.5,
+    "accepted_bad_rate_observed": 0.06941771326047953,
+    "mean_predicted_p_bad_approved": 0.06914605142106785,
     "boundary_good_bad_odds": 5.255602595335721,
     "boundary_pd": 0.15985670201390612,
     "economics": {
-     "Approval %": 91.89164812699177,
-     "Funded loans": 9189.164812699177,
-     "Accepted bad rate % (observed)": 6.9131359398004255,
-     "Mean predicted p_bad % (approved)": 6.886918556401751,
-     "Interest revenue": 609200732.6526827,
-     "Credit losses": 63366497.75802547,
-     "Net contribution (after funding and operating cost)": 144272336.91282895,
-     "Funding and operating costs": 401561897.9818282
+     "Approval %": 92.16222716613554,
+     "Funded loans": 9216.222716613553,
+     "Accepted bad rate % (observed)": 6.941771326047953,
+     "Mean predicted p_bad % (approved)": 6.914605142106785,
+     "Interest revenue": 610782322.9783566,
+     "Credit losses": 63816516.54022629,
+     "Net contribution (after funding and operating cost)": 144241666.74158838,
+     "Funding and operating costs": 402724139.6965419
     }
    },
    {
     "cutoff": 540,
-    "approved": 28934,
-    "approval_rate": 0.8698815465095304,
-    "approved_principal_actual_amt_credit": 18227500668.0,
-    "accepted_bad_rate_observed": 0.06473353148544965,
-    "mean_predicted_p_bad_approved": 0.06438762479264239,
+    "approved": 29056,
+    "approval_rate": 0.8735493957068126,
+    "approved_principal_actual_amt_credit": 18309945730.5,
+    "accepted_bad_rate_observed": 0.06494355726872247,
+    "mean_predicted_p_bad_approved": 0.0647086029392496,
     "boundary_good_bad_odds": 6.250000000000006,
     "boundary_pd": 0.1379310344827585,
     "economics": {
-     "Approval %": 86.98815465095305,
-     "Funded loans": 8698.815465095304,
-     "Accepted bad rate % (observed)": 6.473353148544965,
-     "Mean predicted p_bad % (approved)": 6.438762479264239,
-     "Interest revenue": 572385968.3814803,
-     "Credit losses": 56122755.01501924,
-     "Net contribution (after funding and operating cost)": 136015126.27848682,
-     "Funding and operating costs": 380248087.0879743
+     "Approval %": 87.35493957068125,
+     "Funded loans": 8735.493957068125,
+     "Accepted bad rate % (observed)": 6.494355726872247,
+     "Mean predicted p_bad % (approved)": 6.47086029392496,
+     "Interest revenue": 574707523.5340546,
+     "Credit losses": 56542591.53579087,
+     "Net contribution (after funding and operating cost)": 136326202.5063177,
+     "Funding and operating costs": 381838729.4919461
     }
    },
    {
     "cutoff": 545,
-    "approved": 26867,
-    "approval_rate": 0.8077385605195118,
-    "approved_principal_actual_amt_credit": 17227403194.5,
-    "accepted_bad_rate_observed": 0.0588082033721666,
-    "mean_predicted_p_bad_approved": 0.05951898814866617,
+    "approved": 26987,
+    "approval_rate": 0.8113462810414287,
+    "approved_principal_actual_amt_credit": 17314782417.0,
+    "accepted_bad_rate_observed": 0.059139585726460886,
+    "mean_predicted_p_bad_approved": 0.05979521888543196,
     "boundary_good_bad_odds": 7.432544468767014,
     "boundary_pd": 0.1185881679846294,
     "economics": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 528252373.6887709,
-     "Credit losses": 47309937.79869101,
-     "Net contribution (after funding and operating cost)": 127664878.8920947,
-     "Funding and operating costs": 353277556.9979851
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 530524562.8279863,
+     "Credit losses": 47789930.06837956,
+     "Net contribution (after funding and operating cost)": 127896601.47692469,
+     "Funding and operating costs": 354838031.28268206
     }
    },
    {
     "cutoff": 550,
-    "approved": 24392,
-    "approval_rate": 0.7333293247549757,
-    "approved_principal_actual_amt_credit": 15948631548.0,
-    "accepted_bad_rate_observed": 0.05481305346015087,
-    "mean_predicted_p_bad_approved": 0.054434639512256085,
+    "approved": 24559,
+    "approval_rate": 0.7383500691479766,
+    "approved_principal_actual_amt_credit": 16073882829.0,
+    "accepted_bad_rate_observed": 0.05488822834805977,
+    "mean_predicted_p_bad_approved": 0.05477519013585796,
     "boundary_good_bad_odds": 8.838834764831853,
     "boundary_pd": 0.10163805205616644,
     "economics": {
-     "Approval %": 73.33293247549757,
-     "Funded loans": 7333.293247549756,
-     "Accepted bad rate % (observed)": 5.481305346015087,
-     "Mean predicted p_bad % (approved)": 5.443463951225609,
-     "Interest revenue": 475092710.7796253,
-     "Credit losses": 40001014.305285685,
-     "Net contribution (after funding and operating cost)": 114300600.14305454,
-     "Funding and operating costs": 320791096.33128506
+     "Approval %": 73.83500691479766,
+     "Funded loans": 7383.500691479767,
+     "Accepted bad rate % (observed)": 5.488822834805977,
+     "Mean predicted p_bad % (approved)": 5.477519013585796,
+     "Interest revenue": 478402450.5697337,
+     "Credit losses": 40330617.202681944,
+     "Net contribution (after funding and operating cost)": 115086204.01996854,
+     "Funding and operating costs": 322985629.3470832
     }
    },
    {
     "cutoff": 555,
-    "approved": 21483,
-    "approval_rate": 0.6458721664361734,
-    "approved_principal_actual_amt_credit": 14421714975.0,
-    "accepted_bad_rate_observed": 0.05013266303588884,
-    "mean_predicted_p_bad_approved": 0.04910105768039532,
+    "approved": 21635,
+    "approval_rate": 0.6504419457639348,
+    "approved_principal_actual_amt_credit": 14541855453.0,
+    "accepted_bad_rate_observed": 0.05075109775826207,
+    "mean_predicted_p_bad_approved": 0.0493871539539086,
     "boundary_good_bad_odds": 10.511205190671443,
     "boundary_pd": 0.08687187687440315,
     "economics": {
-     "Approval %": 64.58721664361734,
-     "Funded loans": 6458.721664361734,
-     "Accepted bad rate % (observed)": 5.0132663035888845,
-     "Mean predicted p_bad % (approved)": 4.910105768039532,
-     "Interest revenue": 416146413.3009192,
-     "Credit losses": 32207932.360366102,
-     "Net contribution (after funding and operating cost)": 101289106.50725433,
-     "Funding and operating costs": 282649374.4332987
+     "Approval %": 65.04419457639348,
+     "Funded loans": 6504.419457639348,
+     "Accepted bad rate % (observed)": 5.075109775826207,
+     "Mean predicted p_bad % (approved)": 4.93871539539086,
+     "Interest revenue": 419121093.7647,
+     "Credit losses": 32837269.17872081,
+     "Net contribution (after funding and operating cost)": 101656720.23038833,
+     "Funding and operating costs": 284627104.3555908
     }
    },
    {
     "cutoff": 560,
-    "approved": 18480,
-    "approval_rate": 0.5555889603752029,
-    "approved_principal_actual_amt_credit": 12724757716.5,
-    "accepted_bad_rate_observed": 0.045021645021645025,
-    "mean_predicted_p_bad_approved": 0.04405166213478905,
+    "approved": 18608,
+    "approval_rate": 0.559437195598581,
+    "approved_principal_actual_amt_credit": 12854644470.0,
+    "accepted_bad_rate_observed": 0.045088134135855544,
+    "mean_predicted_p_bad_approved": 0.044280316177136854,
     "boundary_good_bad_odds": 12.500000000000012,
     "boundary_pd": 0.074074074074074,
     "economics": {
-     "Approval %": 55.55889603752029,
-     "Funded loans": 5555.889603752029,
-     "Accepted bad rate % (observed)": 4.5021645021645025,
-     "Mean predicted p_bad % (approved)": 4.405166213478905,
-     "Interest revenue": 355231162.61405814,
-     "Credit losses": 24864451.29688419,
-     "Net contribution (after funding and operating cost)": 87133087.32831466,
-     "Funding and operating costs": 243233623.9888593
+     "Approval %": 55.943719559858096,
+     "Funded loans": 5594.37195598581,
+     "Accepted bad rate % (observed)": 4.508813413585554,
+     "Mean predicted p_bad % (approved)": 4.428031617713685,
+     "Interest revenue": 357752039.56351084,
+     "Credit losses": 25074160.625897072,
+     "Net contribution (after funding and operating cost)": 87760162.59455709,
+     "Funding and operating costs": 244917716.34305668
     }
    },
    {
     "cutoff": 565,
-    "approved": 15356,
-    "approval_rate": 0.4616679694546329,
-    "approved_principal_actual_amt_credit": 10893534795.0,
-    "accepted_bad_rate_observed": 0.04044021880698098,
-    "mean_predicted_p_bad_approved": 0.03911792641393217,
+    "approved": 15440,
+    "approval_rate": 0.4641933738199747,
+    "approved_principal_actual_amt_credit": 11001726108.0,
+    "accepted_bad_rate_observed": 0.040867875647668396,
+    "mean_predicted_p_bad_approved": 0.039266581088036386,
     "boundary_good_bad_odds": 14.86508893753403,
     "boundary_pd": 0.06303147772680774,
     "economics": {
-     "Approval %": 46.16679694546329,
-     "Funded loans": 4616.679694546329,
-     "Accepted bad rate % (observed)": 4.044021880698098,
-     "Mean predicted p_bad % (approved)": 3.911792641393217,
-     "Interest revenue": 293679018.94357765,
-     "Credit losses": 18551095.819893856,
-     "Net contribution (after funding and operating cost)": 72929061.58181152,
-     "Funding and operating costs": 202198861.5418723
+     "Approval %": 46.41933738199747,
+     "Funded loans": 4641.9337381997475,
+     "Accepted bad rate % (observed)": 4.08678756476684,
+     "Mean predicted p_bad % (approved)": 3.9266581088036387,
+     "Interest revenue": 295317101.91758007,
+     "Credit losses": 18850568.49692082,
+     "Net contribution (after funding and operating cost)": 73172108.84155641,
+     "Funding and operating costs": 203294424.5791028
     }
    },
    {
     "cutoff": 570,
-    "approved": 12380,
-    "approval_rate": 0.37219650051109376,
-    "approved_principal_actual_amt_credit": 9054146232.0,
-    "accepted_bad_rate_observed": 0.03812600969305331,
-    "mean_predicted_p_bad_approved": 0.03452285179274328,
+    "approved": 12421,
+    "approval_rate": 0.373429138356082,
+    "approved_principal_actual_amt_credit": 9144375138.0,
+    "accepted_bad_rate_observed": 0.03767812575477015,
+    "mean_predicted_p_bad_approved": 0.034607268055106874,
     "boundary_good_bad_odds": 17.677669529663707,
     "boundary_pd": 0.05353987007917712,
     "economics": {
-     "Approval %": 37.219650051109376,
-     "Funded loans": 3721.9650051109375,
-     "Accepted bad rate % (observed)": 3.8126009693053313,
-     "Mean predicted p_bad % (approved)": 3.452285179274328,
-     "Interest revenue": 234904785.3540955,
-     "Credit losses": 14092849.535194518,
-     "Net contribution (after funding and operating cost)": 57795896.67001682,
-     "Funding and operating costs": 163016039.14888415
+     "Approval %": 37.3429138356082,
+     "Funded loans": 3734.29138356082,
+     "Accepted bad rate % (observed)": 3.767812575477015,
+     "Mean predicted p_bad % (approved)": 3.4607268055106872,
+     "Interest revenue": 235725112.13901812,
+     "Credit losses": 13973426.588155773,
+     "Net contribution (after funding and operating cost)": 58185254.15746748,
+     "Funding and operating costs": 163566431.39339486
     }
    },
    {
     "cutoff": 575,
-    "approved": 9644,
-    "approval_rate": 0.2899404726113884,
-    "approved_principal_actual_amt_credit": 7286827653.0,
-    "accepted_bad_rate_observed": 0.03349232683533803,
-    "mean_predicted_p_bad_approved": 0.03028882414186833,
+    "approved": 9672,
+    "approval_rate": 0.2907822740665023,
+    "approved_principal_actual_amt_credit": 7368027736.5,
+    "accepted_bad_rate_observed": 0.03329197684036394,
+    "mean_predicted_p_bad_approved": 0.030355520114087,
     "boundary_good_bad_odds": 21.022410381342887,
     "boundary_pd": 0.04540829013190979,
     "economics": {
-     "Approval %": 28.99404726113884,
-     "Funded loans": 2899.4047261138835,
-     "Accepted bad rate % (observed)": 3.349232683533803,
-     "Mean predicted p_bad % (approved)": 3.0288824141868327,
-     "Interest revenue": 182598923.1453356,
-     "Credit losses": 9642395.787046097,
-     "Net contribution (after funding and operating cost)": 45900768.47792778,
-     "Funding and operating costs": 127055758.88036174
+     "Approval %": 29.07822740665023,
+     "Funded loans": 2907.822740665023,
+     "Accepted bad rate % (observed)": 3.329197684036394,
+     "Mean predicted p_bad % (approved)": 3.0355520114087002,
+     "Interest revenue": 183161192.14241332,
+     "Credit losses": 9612579.291312356,
+     "Net contribution (after funding and operating cost)": 46119876.45537189,
+     "Funding and operating costs": 127428736.39572906
     }
    },
    {
     "cutoff": 580,
-    "approved": 7211,
-    "approval_rate": 0.21679393902952318,
-    "approved_principal_actual_amt_credit": 5660818308.0,
-    "accepted_bad_rate_observed": 0.03037026764665095,
-    "mean_predicted_p_bad_approved": 0.026358340619820494,
+    "approved": 7222,
+    "approval_rate": 0.21712464674403223,
+    "approved_principal_actual_amt_credit": 5716566985.5,
+    "accepted_bad_rate_observed": 0.030877873165328164,
+    "mean_predicted_p_bad_approved": 0.026395149923162692,
     "boundary_good_bad_odds": 25.00000000000003,
     "boundary_pd": 0.038461538461538415,
     "economics": {
-     "Approval %": 21.679393902952317,
-     "Funded loans": 2167.939390295232,
-     "Accepted bad rate % (observed)": 3.0370267646650952,
-     "Mean predicted p_bad % (approved)": 2.6358340619820493,
-     "Interest revenue": 136012471.31097233,
-     "Credit losses": 6536038.808472703,
-     "Net contribution (after funding and operating cost)": 34448859.25826265,
-     "Funding and operating costs": 95027573.24423698
+     "Approval %": 21.712464674403222,
+     "Funded loans": 2171.2464674403222,
+     "Accepted bad rate % (observed)": 3.0877873165328165,
+     "Mean predicted p_bad % (approved)": 2.6395149923162693,
+     "Interest revenue": 136234512.72368258,
+     "Credit losses": 6655566.398247296,
+     "Net contribution (after funding and operating cost)": 34412302.0300836,
+     "Funding and operating costs": 95166644.29535168
     }
    },
    {
     "cutoff": 585,
-    "approved": 5232,
-    "approval_rate": 0.15729661475557694,
-    "approved_principal_actual_amt_credit": 4234925187.0,
-    "accepted_bad_rate_observed": 0.026758409785932722,
-    "mean_predicted_p_bad_approved": 0.02290900601029592,
+    "approved": 5226,
+    "approval_rate": 0.15711622872948108,
+    "approved_principal_actual_amt_credit": 4301628196.5,
+    "accepted_bad_rate_observed": 0.02640642939150402,
+    "mean_predicted_p_bad_approved": 0.022918492917704335,
     "boundary_good_bad_odds": 29.730177875068062,
     "boundary_pd": 0.03254130204079677,
     "economics": {
-     "Approval %": 15.729661475557693,
-     "Funded loans": 1572.9661475557693,
-     "Accepted bad rate % (observed)": 2.675840978593272,
-     "Mean predicted p_bad % (approved)": 2.290900601029592,
-     "Interest revenue": 98104719.72048706,
-     "Credit losses": 4176402.25744099,
-     "Net contribution (after funding and operating cost)": 24962323.437267717,
-     "Funding and operating costs": 68965994.02577835
+     "Approval %": 15.711622872948109,
+     "Funded loans": 1571.162287294811,
+     "Accepted bad rate % (observed)": 2.640642939150402,
+     "Mean predicted p_bad % (approved)": 2.2918492917704336,
+     "Interest revenue": 98014800.56579676,
+     "Credit losses": 4116716.9446055796,
+     "Net contribution (after funding and operating cost)": 25007491.434385996,
+     "Funding and operating costs": 68890592.18680519
     }
    },
    {
     "cutoff": 590,
-    "approved": 3689,
-    "approval_rate": 0.1109073417112621,
-    "approved_principal_actual_amt_credit": 3097341670.5,
-    "accepted_bad_rate_observed": 0.027107617240444564,
-    "mean_predicted_p_bad_approved": 0.01988732555485485,
+    "approved": 3656,
+    "approval_rate": 0.10991521856773495,
+    "approved_principal_actual_amt_credit": 3131161951.5,
+    "accepted_bad_rate_observed": 0.027078774617067834,
+    "mean_predicted_p_bad_approved": 0.019836256941160486,
     "boundary_good_bad_odds": 35.355339059327406,
     "boundary_pd": 0.02750627626847666,
     "economics": {
-     "Approval %": 11.09073417112621,
-     "Funded loans": 1109.073417112621,
-     "Accepted bad rate % (observed)": 2.7107617240444566,
-     "Mean predicted p_bad % (approved)": 1.988732555485485,
-     "Interest revenue": 68493055.64545289,
-     "Credit losses": 2981649.5733743,
-     "Net contribution (after funding and operating cost)": 16903431.097886227,
-     "Funding and operating costs": 48607974.97419236
+     "Approval %": 10.991521856773495,
+     "Funded loans": 1099.1521856773495,
+     "Accepted bad rate % (observed)": 2.7078774617067833,
+     "Mean predicted p_bad % (approved)": 1.9836256941160486,
+     "Interest revenue": 67880611.97442551,
+     "Credit losses": 2951833.0776405567,
+     "Net contribution (after funding and operating cost)": 16755441.366547504,
+     "Funding and operating costs": 48173337.53023745
     }
    },
    {
     "cutoff": 595,
-    "approved": 2475,
-    "approval_rate": 0.0744092357645361,
-    "approved_principal_actual_amt_credit": 2157241675.5,
-    "accepted_bad_rate_observed": 0.02383838383838384,
-    "mean_predicted_p_bad_approved": 0.017164665243219537,
+    "approved": 2464,
+    "approval_rate": 0.07407852805002706,
+    "approved_principal_actual_amt_credit": 2190250435.5,
+    "accepted_bad_rate_observed": 0.023944805194805196,
+    "mean_predicted_p_bad_approved": 0.01715378947524127,
     "boundary_good_bad_odds": 42.04482076268576,
     "boundary_pd": 0.023231598651860794,
     "economics": {
-     "Approval %": 7.440923576453611,
-     "Funded loans": 744.0923576453611,
-     "Accepted bad rate % (observed)": 2.383838383838384,
-     "Mean predicted p_bad % (approved)": 1.7164665243219537,
-     "Interest revenue": 45973013.481498785,
+     "Approval %": 7.4078528050027055,
+     "Funded loans": 740.7852805002706,
+     "Accepted bad rate % (observed)": 2.3944805194805197,
+     "Mean predicted p_bad % (approved)": 1.715378947524127,
+     "Interest revenue": 45768037.71293871,
      "Credit losses": 1759173.2482908366,
-     "Net contribution (after funding and operating cost)": 11587830.665692687,
-     "Funding and operating costs": 32626009.56751526
+     "Net contribution (after funding and operating cost)": 11528321.571594601,
+     "Funding and operating costs": 32480542.89305327
     }
    },
    {
     "cutoff": 600,
-    "approved": 1596,
-    "approval_rate": 0.0479826829414948,
-    "approved_principal_actual_amt_credit": 1436331928.5,
-    "accepted_bad_rate_observed": 0.017543859649122806,
-    "mean_predicted_p_bad_approved": 0.014789025758615074,
+    "approved": 1575,
+    "approval_rate": 0.04735133185015934,
+    "approved_principal_actual_amt_credit": 1437545542.5,
+    "accepted_bad_rate_observed": 0.017777777777777778,
+    "mean_predicted_p_bad_approved": 0.014740755006899964,
     "boundary_good_bad_odds": 50.00000000000004,
     "boundary_pd": 0.019607843137254884,
     "economics": {
-     "Approval %": 4.79826829414948,
-     "Funded loans": 479.826829414948,
-     "Accepted bad rate % (observed)": 1.7543859649122806,
-     "Mean predicted p_bad % (approved)": 1.4789025758615075,
-     "Interest revenue": 29670578.83170937,
+     "Approval %": 4.735133185015934,
+     "Funded loans": 473.5133185015934,
+     "Accepted bad rate % (observed)": 1.7777777777777777,
+     "Mean predicted p_bad % (approved)": 1.4740755006899964,
+     "Interest revenue": 29279261.45536741,
      "Credit losses": 834861.8805448038,
-     "Net contribution (after funding and operating cost)": 7779177.13511276,
-     "Funding and operating costs": 21056539.816051807
+     "Net contribution (after funding and operating cost)": 7665568.864561866,
+     "Funding and operating costs": 20778830.710260738
     }
    }
   ],
@@ -481,16 +481,16 @@
    "approval_rate": 1.0,
    "approved_principal_actual_amt_credit": 20150347446.0,
    "accepted_bad_rate_observed": 0.07921952979375864,
-   "mean_predicted_p_bad_approved": 0.07933153546638033,
+   "mean_predicted_p_bad_approved": 0.07933425737819565,
    "economics": {
     "Approval %": 100.0,
     "Funded loans": 10000.0,
     "Accepted bad rate % (observed)": 7.921952979375864,
-    "Mean predicted p_bad % (approved)": 7.933153546638033,
-    "Interest revenue": 672483689.2702972,
-    "Credit losses": 79168713.29648265,
-    "Net contribution (after funding and operating cost)": 156667444.45987076,
-    "Funding and operating costs": 436647531.51394373
+    "Mean predicted p_bad % (approved)": 7.933425737819564,
+    "Interest revenue": 671876851.1005335,
+    "Credit losses": 79164121.41017242,
+    "Net contribution (after funding and operating cost)": 156079768.37174207,
+    "Funding and operating costs": 436632961.31861895
    }
   },
   "economics_basis": {
@@ -508,24 +508,24 @@
     "name": "Base case",
     "changes": {},
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 528252373.6887709,
-     "Credit losses": 47309937.79869101,
-     "Net contribution (after funding and operating cost)": 127664878.8920947,
-     "Funding and operating costs": 353277556.9979851
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 530524562.8279863,
+     "Credit losses": 47789930.06837956,
+     "Net contribution (after funding and operating cost)": 127896601.47692469,
+     "Funding and operating costs": 354838031.28268206
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 10000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 672483689.2702972,
-     "Credit losses": 79168713.29648265,
-     "Net contribution (after funding and operating cost)": 156667444.45987076,
-     "Funding and operating costs": 436647531.51394373
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 671876851.1005335,
+     "Credit losses": 79164121.41017242,
+     "Net contribution (after funding and operating cost)": 156079768.37174207,
+     "Funding and operating costs": 436632961.31861895
     }
    },
    {
@@ -534,24 +534,24 @@
      "lgd": 0.5
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 528252373.6887709,
-     "Credit losses": 31539958.53246067,
-     "Net contribution (after funding and operating cost)": 143434858.15832505,
-     "Funding and operating costs": 353277556.9979851
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 530524562.8279863,
+     "Credit losses": 31859953.378919706,
+     "Net contribution (after funding and operating cost)": 143826578.16638455,
+     "Funding and operating costs": 354838031.28268206
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 10000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 672483689.2702972,
-     "Credit losses": 52779142.197655104,
-     "Net contribution (after funding and operating cost)": 183057015.5586983,
-     "Funding and operating costs": 436647531.5139438
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 671876851.1005335,
+     "Credit losses": 52776080.94011495,
+     "Net contribution (after funding and operating cost)": 182467808.84179956,
+     "Funding and operating costs": 436632961.31861895
     }
    },
    {
@@ -560,24 +560,24 @@
      "lgd": 0.9
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 528252373.6887709,
-     "Credit losses": 56771925.3584292,
-     "Net contribution (after funding and operating cost)": 118202891.33235651,
-     "Funding and operating costs": 353277556.9979852
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 530524562.8279863,
+     "Credit losses": 57347916.08205548,
+     "Net contribution (after funding and operating cost)": 118338615.46324876,
+     "Funding and operating costs": 354838031.28268206
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 10000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 672483689.2702972,
-     "Credit losses": 95002455.95577918,
-     "Net contribution (after funding and operating cost)": 140833701.8005742,
-     "Funding and operating costs": 436647531.5139438
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 671876851.1005335,
+     "Credit losses": 94996945.69220692,
+     "Net contribution (after funding and operating cost)": 140246944.08970755,
+     "Funding and operating costs": 436632961.3186191
     }
    },
    {
@@ -586,24 +586,24 @@
      "event_to_loss": 0.3
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 529954300.1779798,
-     "Credit losses": 28385962.6792146,
-     "Net contribution (after funding and operating cost)": 147170544.89320529,
-     "Funding and operating costs": 354397792.60555995
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 532244324.08748174,
+     "Credit losses": 28673958.041027736,
+     "Net contribution (after funding and operating cost)": 147600726.54623568,
+     "Funding and operating costs": 355969639.50021833
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 10000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 675502892.6942285,
-     "Credit losses": 47501227.97788959,
-     "Net contribution (after funding and operating cost)": 189477409.57386404,
-     "Funding and operating costs": 438524255.14247495
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 674892944.207609,
+     "Credit losses": 47498472.84610345,
+     "Net contribution (after funding and operating cost)": 188884931.45846182,
+     "Funding and operating costs": 438509539.9030438
     }
    },
    {
@@ -612,24 +612,24 @@
      "event_to_loss": 0.8
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 525699483.9549575,
-     "Credit losses": 75695900.4779056,
-     "Net contribution (after funding and operating cost)": 98406379.89042884,
-     "Funding and operating costs": 351597203.586623
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 527944920.9387433,
+     "Credit losses": 76463888.1094073,
+     "Net contribution (after funding and operating cost)": 98340413.87295821,
+     "Funding and operating costs": 353140618.95637774
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 10000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 667954884.1343999,
-     "Credit losses": 126669941.27437225,
-     "Net contribution (after funding and operating cost)": 107452496.78888078,
-     "Funding and operating costs": 433832446.0711469
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 667352711.4399201,
+     "Credit losses": 126662594.25627589,
+     "Net contribution (after funding and operating cost)": 106872023.74166237,
+     "Funding and operating costs": 433818093.4419818
     }
    },
    {
@@ -638,24 +638,24 @@
      "event_to_loss": 1.0
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 523997557.4657486,
-     "Credit losses": 94619875.59738202,
-     "Net contribution (after funding and operating cost)": 78900713.88931826,
-     "Funding and operating costs": 350476967.9790484
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 526225159.6792479,
+     "Credit losses": 95579860.13675912,
+     "Net contribution (after funding and operating cost)": 78636288.80364724,
+     "Funding and operating costs": 352009010.7388416
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 10000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 664935680.7104684,
-     "Credit losses": 158337426.5929653,
-     "Net contribution (after funding and operating cost)": 74642531.6748875,
-     "Funding and operating costs": 431955722.4426156
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 664336618.3328444,
+     "Credit losses": 158328242.82034484,
+     "Net contribution (after funding and operating cost)": 74066860.65494259,
+     "Funding and operating costs": 431941514.857557
     }
    },
    {
@@ -664,24 +664,24 @@
      "funding_rate": 0.03
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 528252373.6887709,
-     "Credit losses": 47309937.79869101,
-     "Net contribution (after funding and operating cost)": 191897161.98263747,
-     "Funding and operating costs": 289045273.9074424
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 530524562.8279863,
+     "Credit losses": 47789930.06837956,
+     "Net contribution (after funding and operating cost)": 192412607.16468513,
+     "Funding and operating costs": 290322025.5949216
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 10000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 672483689.2702972,
-     "Credit losses": 79168713.29648265,
-     "Net contribution (after funding and operating cost)": 236057904.73513323,
-     "Funding and operating costs": 357257071.23868126
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 671876851.1005335,
+     "Credit losses": 79164121.41017242,
+     "Net contribution (after funding and operating cost)": 235467579.52058196,
+     "Funding and operating costs": 357245150.16977906
     }
    },
    {
@@ -690,24 +690,24 @@
      "funding_rate": 0.06
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 8077.385605195118,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 528252373.6887709,
-     "Credit losses": 47309937.79869101,
-     "Net contribution (after funding and operating cost)": -799687.2889907511,
-     "Funding and operating costs": 481742123.1790706
+     "Approval %": 81.13462810414288,
+     "Funded loans": 8113.462810414287,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 530524562.8279863,
+     "Credit losses": 47789930.06837956,
+     "Net contribution (after funding and operating cost)": -1135409.8985960311,
+     "Funding and operating costs": 483870042.65820277
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 10000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 672483689.2702972,
-     "Credit losses": 79168713.29648265,
-     "Net contribution (after funding and operating cost)": -2113476.09065421,
-     "Funding and operating costs": 595428452.0644687
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 671876851.1005335,
+     "Credit losses": 79164121.41017242,
+     "Net contribution (after funding and operating cost)": -2695853.9259375357,
+     "Funding and operating costs": 595408583.6162986
     }
    },
    {
@@ -716,24 +716,24 @@
      "take_up": 0.6
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 4846.431363117071,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 316951424.21326256,
-     "Credit losses": 28385962.6792146,
-     "Net contribution (after funding and operating cost)": 76598927.33525684,
-     "Funding and operating costs": 211966534.19879112
+     "Approval %": 81.13462810414288,
+     "Funded loans": 4868.077686248572,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 318314737.69679177,
+     "Credit losses": 28673958.04102774,
+     "Net contribution (after funding and operating cost)": 76737960.8861548,
+     "Funding and operating costs": 212902818.76960924
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 6000.0,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 403490213.5621784,
-     "Credit losses": 47501227.97788959,
-     "Net contribution (after funding and operating cost)": 94000466.67592245,
-     "Funding and operating costs": 261988518.90836632
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 403126110.66032004,
+     "Credit losses": 47498472.84610346,
+     "Net contribution (after funding and operating cost)": 93647861.02304523,
+     "Funding and operating costs": 261979776.79117137
     }
    },
    {
@@ -742,58 +742,58 @@
      "take_up": 0.8
     },
     "policy": {
-     "Approval %": 80.77385605195117,
-     "Funded loans": 6461.908484156094,
-     "Accepted bad rate % (observed)": 5.88082033721666,
-     "Mean predicted p_bad % (approved)": 5.951898814866617,
-     "Interest revenue": 422601898.9510167,
-     "Credit losses": 37847950.2389528,
-     "Net contribution (after funding and operating cost)": 102131903.11367577,
-     "Funding and operating costs": 282622045.59838814
+     "Approval %": 81.13462810414288,
+     "Funded loans": 6490.77024833143,
+     "Accepted bad rate % (observed)": 5.913958572646089,
+     "Mean predicted p_bad % (approved)": 5.979521888543196,
+     "Interest revenue": 424419650.2623891,
+     "Credit losses": 38231944.05470365,
+     "Net contribution (after funding and operating cost)": 102317281.18153977,
+     "Funding and operating costs": 283870425.0261457
     },
     "approve_all": {
      "Approval %": 100.0,
      "Funded loans": 8000.000000000001,
      "Accepted bad rate % (observed)": 7.921952979375864,
-     "Mean predicted p_bad % (approved)": 7.933153546638033,
-     "Interest revenue": 537986951.4162378,
-     "Credit losses": 63334970.637186125,
-     "Net contribution (after funding and operating cost)": 125333955.5678966,
-     "Funding and operating costs": 349318025.2111551
+     "Mean predicted p_bad % (approved)": 7.933425737819564,
+     "Interest revenue": 537501480.8804269,
+     "Credit losses": 63331297.128137946,
+     "Net contribution (after funding and operating cost)": 124863814.69739369,
+     "Funding and operating costs": 349306369.0548953
     }
    }
   ],
   "test_evaluation": {
    "provenance": {
-    "model_version": "HI-scorecard final (tuned, 12 characteristics)",
+    "model_version": "HI-scorecard final (scorecardpy, tuned, 12 characteristics)",
     "partition": "test (held out, evaluated once)",
     "status": "frozen model and policy"
    },
    "policy": {
-    "Approval %": 80.81172491544532,
-    "Funded loans": 8081.172491544532,
-    "Accepted bad rate % (observed)": 5.924479166666666,
-    "Mean predicted p_bad % (approved)": 5.943329607447995,
-    "Interest revenue": 528381063.7281821,
-    "Credit losses": 47686893.112800606,
-    "Net contribution (after funding and operating cost)": 127274041.80799764,
-    "Funding and operating costs": 353420128.80738384
+    "Approval %": 81.17399473881999,
+    "Funded loans": 8117.399473881999,
+    "Accepted bad rate % (observed)": 5.959148904649914,
+    "Mean predicted p_bad % (approved)": 5.970877427976406,
+    "Interest revenue": 530654681.9698571,
+    "Credit losses": 48181550.85003234,
+    "Net contribution (after funding and operating cost)": 127486979.45119941,
+    "Funding and operating costs": 354986151.66862535
    },
    "approve_all": {
     "Approval %": 100.0,
     "Funded loans": 10000.0,
     "Accepted bad rate % (observed)": 7.921833897031191,
-    "Mean predicted p_bad % (approved)": 7.953775232680002,
-    "Interest revenue": 672622593.4212344,
-    "Credit losses": 79181347.39948814,
-    "Net contribution (after funding and operating cost)": 156790836.72836208,
-    "Funding and operating costs": 436650409.2933842
+    "Mean predicted p_bad % (approved)": 7.953896631022944,
+    "Interest revenue": 672012721.7745351,
+    "Credit losses": 79175894.00043589,
+    "Net contribution (after funding and operating cost)": 156201036.41307315,
+    "Funding and operating costs": 436635791.3610259
    }
   }
  },
  "pricing": {
   "provenance": {
-   "model_version": "HI-scorecard final (tuned, 12 characteristics)",
+   "model_version": "HI-scorecard final (scorecardpy, tuned, 12 characteristics)",
    "partition": "validation (risk estimates)",
    "status": "illustrative break-even rates under hypothetical loan terms"
   },
@@ -813,88 +813,88 @@
   "bands": [
    {
     "band": "< 530",
-    "Applicants": 1510,
-    "Mean predicted p_bad %": 21.864004098179695,
-    "Observed bad rate %": 19.933774834437088,
-    "Loss-event probability %": 10.932002049089848,
-    "Break-even rate %": 10.220501791669044,
+    "Applicants": 1423,
+    "Mean predicted p_bad %": 22.05310174752458,
+    "Observed bad rate %": 20.309205903021784,
+    "Loss-event probability %": 11.02655087376229,
+    "Break-even rate %": 10.24601051893746,
     "Offered rate %": 10.25,
     "Within 36% cap": "yes",
     "Above policy cutoff": "no"
    },
    {
     "band": "530-539",
-    "Applicants": 2818,
-    "Mean predicted p_bad %": 15.81219073988339,
-    "Observed bad rate %": 16.359119943222144,
-    "Loss-event probability %": 7.906095369941695,
-    "Break-even rate %": 9.412842162036824,
+    "Applicants": 2783,
+    "Mean predicted p_bad %": 15.983732089235813,
+    "Observed bad rate %": 16.492993172835067,
+    "Loss-event probability %": 7.991866044617907,
+    "Break-even rate %": 9.435505875366035,
     "Offered rate %": 9.5,
     "Within 36% cap": "yes",
     "Above policy cutoff": "no"
    },
    {
     "band": "540-549",
-    "Applicants": 4542,
-    "Mean predicted p_bad %": 11.783835507867996,
-    "Observed bad rate %": 11.800968736239541,
-    "Loss-event probability %": 5.891917753933998,
-    "Break-even rate %": 8.884397508971379,
+    "Applicants": 4497,
+    "Mean predicted p_bad %": 11.895692071521024,
+    "Observed bad rate %": 11.985768289971093,
+    "Loss-event probability %": 5.947846035760512,
+    "Break-even rate %": 8.898974091231823,
     "Offered rate %": 9.0,
     "Within 36% cap": "yes",
     "Above policy cutoff": "partly"
    },
    {
     "band": "550-559",
-    "Applicants": 5912,
-    "Mean predicted p_bad %": 8.689022508999471,
-    "Observed bad rate %": 8.541948579161028,
-    "Loss-event probability %": 4.344511254499736,
-    "Break-even rate %": 8.483260426237091,
+    "Applicants": 5951,
+    "Mean predicted p_bad %": 8.75912907280076,
+    "Observed bad rate %": 8.553184338766593,
+    "Loss-event probability %": 4.37956453640038,
+    "Break-even rate %": 8.49230142414767,
     "Offered rate %": 8.5,
     "Within 36% cap": "yes",
     "Above policy cutoff": "yes"
    },
    {
     "band": "560-569",
-    "Applicants": 6100,
-    "Mean predicted p_bad %": 6.339046082897376,
-    "Observed bad rate %": 5.901639344262295,
-    "Loss-event probability %": 3.169523041448688,
-    "Break-even rate %": 8.18142388331458,
+    "Applicants": 6187,
+    "Mean predicted p_bad %": 6.369989444184256,
+    "Observed bad rate %": 5.996444157103604,
+    "Loss-event probability %": 3.184994722092128,
+    "Break-even rate %": 8.185383024249527,
     "Offered rate %": 8.25,
     "Within 36% cap": "yes",
     "Above policy cutoff": "yes"
    },
    {
     "band": "570-579",
-    "Applicants": 5169,
-    "Mean predicted p_bad %": 4.591273186005729,
-    "Observed bad rate %": 4.894563745405301,
-    "Loss-event probability %": 2.2956365930028646,
-    "Break-even rate %": 7.958457136715314,
+    "Applicants": 5199,
+    "Mean predicted p_bad %": 4.601483049959637,
+    "Observed bad rate %": 4.71244470090402,
+    "Loss-event probability %": 2.3007415249798187,
+    "Break-even rate %": 7.959755891203351,
     "Offered rate %": 8.0,
     "Within 36% cap": "yes",
     "Above policy cutoff": "yes"
    },
    {
     "band": "580-589",
-    "Applicants": 3522,
-    "Mean predicted p_bad %": 3.3136186893147666,
-    "Observed bad rate %": 3.378762067007382,
-    "Loss-event probability %": 1.6568093446573833,
-    "Break-even rate %": 7.796276561045618,
+    "Applicants": 3566,
+    "Mean predicted p_bad %": 3.311957862260185,
+    "Observed bad rate %": 3.4772854739203587,
+    "Loss-event probability %": 1.6559789311300925,
+    "Break-even rate %": 7.796066185782948,
     "Offered rate %": 8.0,
     "Within 36% cap": "yes",
     "Above policy cutoff": "yes"
    },
    {
     "band": "590+",
-    "Applicants": 3689,
-    "Mean predicted p_bad %": 1.9887325554854847,
-    "Observed bad rate %": 2.7107617240444566,
-    "Loss-event probability %": 0.9943662777427423,
-    "Break-even rate %": 7.6288188499670895,
+    "Applicants": 3656,
+    "Mean predicted p_bad %": 1.9836256941160486,
+    "Observed bad rate %": 2.7078774617067833,
+    "Loss-event probability %": 0.9918128470580243,
+    "Break-even rate %": 7.628174780631905,
     "Offered rate %": 7.75,
     "Within 36% cap": "yes",
     "Above policy cutoff": "yes"
@@ -905,7 +905,7 @@
  },
  "monitoring": {
   "provenance": {
-   "model_version": "HI-scorecard final (tuned, 12 characteristics)",
+   "model_version": "HI-scorecard final (scorecardpy, tuned, 12 characteristics)",
    "partition": "dev_train (reference) vs test (comparison)",
    "status": "sample-distribution comparison from the same period"
   },
@@ -919,42 +919,42 @@
    "source": "Common industry rule of thumb quoted in the notebook (not a course requirement)"
   },
   "score": {
-   "psi": 0.00034173467684735107,
+   "psi": 0.0003029348108744227,
    "bins": [
-    "<= 537.1",
-    "(537.1, 545.7]",
-    "(545.7, 552.3]",
-    "(552.3, 557.9]",
-    "(557.9, 563.1]",
-    "(563.1, 568.5]",
-    "(568.5, 574.3]",
-    "(574.3, 581.1]",
-    "(581.1, 590.9]",
-    "> 590.9"
+    "<= 537.0",
+    "(537.0, 545.0]",
+    "(545.0, 552.0]",
+    "(552.0, 558.0]",
+    "(558.0, 563.0]",
+    "(563.0, 568.0]",
+    "(568.0, 574.0]",
+    "(574.0, 581.0]",
+    "(581.0, 590.0]",
+    "> 590.0"
    ],
    "reference": [
-    0.10000400857835769,
-    0.10000400857835769,
-    0.09999398713246348,
-    0.10000400857835769,
-    0.09999398713246348,
-    0.10000400857835769,
-    0.09999398713246348,
-    0.10000400857835769,
-    0.09999398713246348,
-    0.10000400857835769
+    0.10568616840037681,
+    0.09451225622832862,
+    0.10783075782173852,
+    0.10960455374501434,
+    0.09642635239412342,
+    0.09238770969875533,
+    0.10314072114324654,
+    0.10093600304651955,
+    0.09047361353296053,
+    0.09900186398893632
    ],
    "comparison": [
-    0.10421645997745209,
-    0.0968357760240511,
+    0.10949267192784667,
+    0.09211574596016535,
+    0.10773393461104848,
+    0.11074032318677189,
+    0.09609921082299887,
+    0.09124389327320556,
+    0.1014956783164224,
     0.1014054866591507,
-    0.09961668545659526,
-    0.10012777151446825,
-    0.09891018414130026,
-    0.09943630214205186,
-    0.09856444945509207,
-    0.09996242014280346,
-    0.10092446448703495
+    0.08901916572717024,
+    0.10065388951521984
    ],
    "binning": "Score deciles of dev_train (frozen edges)"
   },
@@ -995,8 +995,8 @@
      "(4.8, 6.3]",
      "(6.3, 9.2]",
      "(9.2, 15]",
-     "> 15",
-     "Missing"
+     "Missing",
+     "> 15"
     ],
     "reference": [
      0.24384182149800573,
@@ -1004,8 +1004,8 @@
      0.08179504138857155,
      0.12300322690557794,
      0.11948569939670896,
-     0.0833784298398573,
-     0.18449481891247269
+     0.18449481891247269,
+     0.0833784298398573
     ],
     "comparison": [
      0.24419391206313415,
@@ -1013,8 +1013,8 @@
      0.08240511086057872,
      0.12389327320556182,
      0.11971439308530628,
-     0.08284103720405862,
-     0.18381059751972942
+     0.18381059751972942,
+     0.08284103720405862
     ]
    },
    {
